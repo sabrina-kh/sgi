@@ -1,2 +1,3 @@
 .env
 /database/vars.js
+node_modules
