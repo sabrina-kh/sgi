@@ -1,22 +1,25 @@
 import './App.css';
+import { BrowserRouter, BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Navigationbar from './components/nav/Navigationbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Home from './components/Home'
+import Register from './components/auth/Register'
+import Login from './components/auth/Login'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload123.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <BrowserRouter>
+    <div>
+      <Navigationbar />
+      <Switch>
+<Route exact path="/" component={Home} />
+<Route exact path="/register" component={Register} />
+<Route exact path="/login" component={Login} />
+      </Switch>
     </div>
+    </BrowserRouter>
   );
 }
 
