@@ -1,10 +1,10 @@
 import react from 'react'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 
-const Navigationbar = () => {
+const Navigationbar = ({ colour }) => {
     return (
         <div>
-            <Navbar bg="light" expand="lg">
+            <Navbar style={{ background: colour }} expand="lg">
                 <Container>
                     <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

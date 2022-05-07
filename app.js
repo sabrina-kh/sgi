@@ -10,6 +10,8 @@ app.use(express.json({ extended: false }))
 
 // ---define routes---
 app.use('/users', require("./routes/user.route"))
+app.use('/products', require("./routes/product.route"))
+
 
 app.listen(3010, () => {
     console.log('App is running')

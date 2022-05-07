@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose")
 
-const userTypes = ['ADMIN', 'CLIENT', 'RESP_STOCK', 'RESP_VENTE']
+const userTypes = ['ADMIN', 'CLIENT', 'RESP_STOCK', 'RESP_VENTE','RESP_REGLEMENT']
 
 const UserSchema = new Schema({
     firstName: {
