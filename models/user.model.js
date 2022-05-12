@@ -18,8 +18,9 @@ const UserSchema = new Schema({
     },
     userType: {
         type: String,
-        required: true,
-        enum: userTypes
+       required: true,
+       enum: userTypes,
+        default:"ADMIN"
     },
     company:  {
         type: String,

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
 
 const User = require("../models/user.model");
+const Client = require("../models/client.model");
 
 // bcryptjs configs
 const rounds = 10;
@@ -17,14 +18,13 @@ const registerUser = async (req, res) => {
       .status(400)
       .json({ errors: errors.array({ onlyFirstError: true }) });
   }
-  const { firstName, lastName, email, password, userType, company } = req.body;
+  const { firstName, lastName, email, password, company, userType } = req.body;
   try {
     // check if user with this email exists, throw error if it exists
     let user = await User.findOne({ email });
     if (user) {
       return res.json({ error: "Utilisateur existant!" });
     }
-
     // create new user
     user = new User({
       firstName,
@@ -32,7 +32,7 @@ const registerUser = async (req, res) => {
       email,
       company,
       password,
-      userType,
+     userType,
     });
 
     // encrypt password before saving in db
@@ -43,6 +43,7 @@ const registerUser = async (req, res) => {
     user.password = await bcrypt.hash(password, salt);
 
     // save new user in db
+    
     await user.save()
 
     // implement json web token
@@ -58,7 +59,7 @@ const registerUser = async (req, res) => {
 
     // return user data
     //res.json(user)
-    //console.log(user)
+    console.log(user)
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Nous avons pas pu se connecter au serveur !");
@@ -119,5 +120,97 @@ const getUser = async (req, res) => {
     }
   };
 
+// add user
+const addUser = async (req, res) => {
+  const errors = validationResult(req);
 
-module.exports = { registerUser, loginUser, getUser };
+  if (!errors.isEmpty()) {
+    return res
+      .status(400)
+      .json({ errors: errors.array({ onlyFirstError: true }) });
+  }
+  const { firstName, lastName, email, password, company, userType } = req.body;
+  try {
+    // check if user with this email exists, throw error if it exists
+    let user = await User.findById(req.user.id).populate('userType');
+      if (user.userType !== 'ADMIN') {
+        return res.json({error: "Action inerdite! Uniquement l/'administrateur posséde ce droit "});
+      }
+
+      if (userType === 'ADMIN') {
+        return res.json({error: "Action interdite! Un seul administrateur est permis "});
+      }
+      
+    // create new user
+    let responsable = new User({
+      firstName,
+      lastName,
+      email,
+      company,
+      password,
+      userType,
+    });
+
+    if (userType === 'CLIENT') {
+      responsable = new Client({
+        firstName,
+        lastName,
+        email,
+        company,
+        password,
+        userType,
+      });
+    }
+
+    if (userType === 'RESPVENTE') {
+      responsable = new Respvente({
+        firstName,
+        lastName,
+        email,
+        company,
+        password,
+        userType,
+      });
+    }
+    if (userType === 'RESPSTOCK') {
+      responsable = new Respstock({
+        firstName,
+        lastName,
+        email,
+        company,
+        password,
+        userType,
+      });
+    }
+    if (userType === 'RESPREGLEMENT') {
+      responsable = new Respreglement({
+        firstName,
+        lastName,
+        email,
+        company,
+        password,
+        userType,
+      });
+    }
+
+    // encrypt password before saving in db
+    // define salt
+    const salt = await bcrypt.genSalt(rounds);
+
+    //hash user password
+    user.password = await bcrypt.hash(password, salt);
+
+    // save new responsable in db
+    await responsable.save()
+
+    // return responsable data
+    res.json(responsable)
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Nous avons pas pu se connecter au serveur !");
+  }
+};
+
+
+
+module.exports = { registerUser, loginUser, getUser , addUser };

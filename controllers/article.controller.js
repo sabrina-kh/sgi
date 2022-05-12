@@ -1,6 +1,6 @@
 const express = require("express");
 const crypto = require('crypto');
-const Product = require("../models/product.model");
+const Article = require("../models/article.model");
 
 // add product
 const addProduct = async (req,res) => {
@@ -8,7 +8,7 @@ const addProduct = async (req,res) => {
   try {
       const codeProduct = crypto.randomBytes(4).toString('hex').toUpperCase()
 
-      const newProduct = new Product({
+      const newProduct = new Article({
           respVente: req.user.id,
           name,
           code: codeProduct
