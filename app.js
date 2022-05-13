@@ -10,6 +10,7 @@ app.use(express.json({ extended: false }))
 
 // ---define routes---
 app.use('/users', require("./routes/user.route"))
+app.use('/clients', require("./routes/client.route"))
 app.use('/products', require("./routes/article.route"))
 
 

@@ -5,6 +5,9 @@ const { validationResult } = require("express-validator");
 
 const User = require("../models/user.model");
 const Client = require("../models/client.model");
+const Respvente = require("../models/respvente.model");
+const Respstock = require("../models/respstock.model");
+const Respreglement = require("../models/respreglement.model");
 
 // bcryptjs configs
 const rounds = 10;
@@ -159,10 +162,11 @@ const addUser = async (req, res) => {
         company,
         password,
         userType,
+        user: req.user.id
       });
     }
 
-    if (userType === 'RESPVENTE') {
+    if (userType === 'RESP_VENTE') {
       responsable = new Respvente({
         firstName,
         lastName,
@@ -170,9 +174,10 @@ const addUser = async (req, res) => {
         company,
         password,
         userType,
+        user: req.user.id
       });
     }
-    if (userType === 'RESPSTOCK') {
+    if (userType === 'RESP_STOCK') {
       responsable = new Respstock({
         firstName,
         lastName,
@@ -180,9 +185,10 @@ const addUser = async (req, res) => {
         company,
         password,
         userType,
+        user: req.user.id
       });
     }
-    if (userType === 'RESPREGLEMENT') {
+    if (userType === 'RESP_REGLEMENT') {
       responsable = new Respreglement({
         firstName,
         lastName,
@@ -190,9 +196,10 @@ const addUser = async (req, res) => {
         company,
         password,
         userType,
+        
       });
     }
-
+    
     // encrypt password before saving in db
     // define salt
     const salt = await bcrypt.genSalt(rounds);
