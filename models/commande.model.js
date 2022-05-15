@@ -5,16 +5,33 @@ const CommandeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
-    codeCom: {
+    lieuDeLivraison: {
         type: String,
         required: true,
-        unique: true
+       
     },
     numCom: {
         type: String,
         required: true,
         unique: true
     },
+    prixHT:{
+        type: Number,
+        required: true,
+        default: 0,
+    },
+    prixTOT:{
+        type: Number,
+        required: true,
+        default: 0,
+
+    },
+    remise:{
+        type: Number,
+        required: true,
+        default: 0,
+    },
+
     isPassed: {
         type: Boolean,
         default: false

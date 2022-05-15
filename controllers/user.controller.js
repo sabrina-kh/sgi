@@ -218,6 +218,27 @@ const addUser = async (req, res) => {
   }
 };
 
+// modifier user
+const updateUser = async (req,res) => {
+  const { firstName, lastName, email } = req.body;
+  const userFields = {}
+if (firstName) userFields.firstName = firstName
+if (lastName) userFields.lastName = lastName
+if (email) userFields.email = email
 
 
-module.exports = { registerUser, loginUser, getUser , addUser };
+  try {
+    let user = await User.findById(req.params.userId)
+    if(!user) {
+      return res.json({error: "Utilisateur non trouvé "});
+    }
+    user = await User.findByIdAndUpdate(req.params.userId, userFields, { new: true })
+   // await user.save()
+    res.json(user)
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Nous avons pas pu se connecter au serveur !"); 
+  }
+}
+
+module.exports = { registerUser, loginUser, getUser , addUser, updateUser };
