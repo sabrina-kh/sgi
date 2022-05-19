@@ -1,0 +1,10 @@
+// user types
+ const ADMIN = 'ADMIN'
+ const CLIENT = 'CLIENT'
+ const RESP_VENTE = 'RESP_VENTE'
+ const RESP_STOCK= 'RESP_STOCK'
+ const RESP_REGLEMENT = 'RESP_REGLEMENT'
+
+ module.exports = {
+     ADMIN, CLIENT, RESP_REGLEMENT, RESP_STOCK, RESP_VENTE
+ }

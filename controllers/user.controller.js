@@ -8,6 +8,8 @@ const Client = require("../models/client.model");
 const Respvente = require("../models/respvente.model");
 const Respstock = require("../models/respstock.model");
 const Respreglement = require("../models/respreglement.model");
+const { BAD_REQUEST, UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND } = require("http-status");
+const { CLIENTS, CLIENT, RESP_VENTE, RESP_STOCK, RESP_REGLEMENT } = require("../utils/constants");
 
 // bcryptjs configs
 const rounds = 10;
@@ -18,7 +20,7 @@ const registerUser = async (req, res) => {
 
   if (!errors.isEmpty()) {
     return res
-      .status(400)
+      .status(BAD_REQUEST)
       .json({ errors: errors.array({ onlyFirstError: true }) });
   }
   const { firstName, lastName, email, password, company, userType } = req.body;
@@ -26,7 +28,7 @@ const registerUser = async (req, res) => {
     // check if user with this email exists, throw error if it exists
     let user = await User.findOne({ email });
     if (user) {
-      return res.json({ error: "Utilisateur existant!" });
+      return res.status(BAD_REQUEST).json({ errors: [{ msg: 'Utilisateur déja existant!' }] });
     }
     // create new user
     user = new User({
@@ -65,7 +67,7 @@ const registerUser = async (req, res) => {
     console.log(user)
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Nous avons pas pu se connecter au serveur !");
+    res.status(INTERNAL_SERVER_ERROR).json({ errors: [{ msg: 'Erreur du serveur!' }] });
   }
 };
 
@@ -75,7 +77,7 @@ const loginUser = async (req, res) => {
 
   if (!errors.isEmpty()) {
     return res
-      .status(400)
+      .status(BAD_REQUEST)
       .json({ errors: errors.array({ onlyFirstError: true }) });
   }
   const { email, password } = req.body;
@@ -83,13 +85,13 @@ const loginUser = async (req, res) => {
     // check if user with this email exists, throw error if it exists
     let user = await User.findOne({ email });
     if (!user) {
-      return res.json({ error: "Utilisateur non existant!" });
+      return res.status(NOT_FOUND).json({ errors: [{ msg: 'Utilisateur non existant!' }] });
     }
 
     //check if password match
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return res.json({ error: "Fausse Mot de passe !" });
+      return res.status(BAD_REQUEST).json({ errors: [{ msg: 'Faux mot de passe!' }] });
     }
 
     // implement json web token
@@ -108,7 +110,7 @@ const loginUser = async (req, res) => {
     //console.log(user)
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Nous avons pas pu se connecter au serveur !");
+    res.status(INTERNAL_SERVER_ERROR).json({ errors: [{ msg: 'Erreur du serveur!' }] });
   }
 };
   
@@ -119,7 +121,7 @@ const getUser = async (req, res) => {
       res.json(user)
     } catch (error) {
       console.error(error.message);
-      res.status(500).send("Nous avons pas pu se connecter au serveur !");
+      res.status(INTERNAL_SERVER_ERROR).json({ errors: [{ msg: 'Erreur du serveur!' }] });
     }
   };
 
@@ -129,7 +131,7 @@ const addUser = async (req, res) => {
 
   if (!errors.isEmpty()) {
     return res
-      .status(400)
+      .status(BAD_REQUEST)
       .json({ errors: errors.array({ onlyFirstError: true }) });
   }
   const { firstName, lastName, email, password, company, userType } = req.body;
@@ -137,7 +139,7 @@ const addUser = async (req, res) => {
     // check if user with this email exists, throw error if it exists
     let user = await User.findById(req.user.id).populate('userType');
       if (user.userType !== 'ADMIN') {
-        return res.json({error: "Action inerdite! Uniquement l/'administrateur posséde ce droit "});
+        return res.status(UNAUTHORIZED).json({error: "Action inerdite! Uniquement l/'administrateur posséde ce droit "});
       }
 
       if (userType === 'ADMIN') {
@@ -154,8 +156,8 @@ const addUser = async (req, res) => {
       userType,
     });
 
-    if (userType === 'CLIENT') {
-      responsable = new Client({
+    if (userType === CLIENT) {
+      let client = new Client({
         firstName,
         lastName,
         email,
@@ -164,10 +166,12 @@ const addUser = async (req, res) => {
         userType,
         user: req.user.id
       });
+
+      await client.save()
     }
 
-    if (userType === 'RESP_VENTE') {
-      responsable = new Respvente({
+    if (userType === RESP_VENTE) {
+      let respVente = new Respvente({
         firstName,
         lastName,
         email,
@@ -176,9 +180,11 @@ const addUser = async (req, res) => {
         userType,
         user: req.user.id
       });
+
+      await respVente.save()
     }
-    if (userType === 'RESP_STOCK') {
-      responsable = new Respstock({
+    if (userType === RESP_STOCK) {
+      let respStock = new Respstock({
         firstName,
         lastName,
         email,
@@ -187,9 +193,11 @@ const addUser = async (req, res) => {
         userType,
         user: req.user.id
       });
+
+      await respStock.save()
     }
-    if (userType === 'RESP_REGLEMENT') {
-      responsable = new Respreglement({
+    if (userType === RESP_REGLEMENT) {
+      let respReglement = new Respreglement({
         firstName,
         lastName,
         email,
@@ -198,6 +206,8 @@ const addUser = async (req, res) => {
         userType,
         
       });
+
+      await respReglement
     }
     
     // encrypt password before saving in db

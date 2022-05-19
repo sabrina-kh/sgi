@@ -6,7 +6,27 @@ const RespstockSchema = new Schema({
         ref:'user'
         
     },
-    
+    firstName: {
+        type: String,
+        required: true,
+      },
+      lastName: {
+        type: String,
+        required: true,
+      },
+      email: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+      userType: {
+        type: String,
+        default: "RESP_STOCK",
+      },
+      company: {
+        type: String,
+        required: true,
+      },
 },{
     timestamps:true 
 })
