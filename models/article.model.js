@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose")
 
-const articleSchema = new Schema({
+const ArticleSchema = new Schema({
     respVente: {
         type: Schema.Types.ObjectId,
         ref: 'user'
@@ -18,5 +18,5 @@ const articleSchema = new Schema({
     timestamps:true 
 })
 
-const article = model("article", articleSchema)
-module.exports = article
+const Article = model("article", ArticleSchema)
+module.exports = Article

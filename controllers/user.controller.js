@@ -9,7 +9,8 @@ const Respvente = require("../models/respvente.model");
 const Respstock = require("../models/respstock.model");
 const Respreglement = require("../models/respreglement.model");
 const { BAD_REQUEST, UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND } = require("http-status");
-const { CLIENTS, CLIENT, RESP_VENTE, RESP_STOCK, RESP_REGLEMENT } = require("../utils/constants");
+const { CLIENTS, CLIENT, RESP_VENTE, RESP_STOCK, RESP_REGLEMENT, ADMIN } = require("../utils/constants");
+const { findOne } = require("../models/user.model");
 
 // bcryptjs configs
 const rounds = 10;
@@ -137,8 +138,8 @@ const addUser = async (req, res) => {
   const { firstName, lastName, email, password, company, userType } = req.body;
   try {
     // check if user with this email exists, throw error if it exists
-    let user = await User.findById(req.user.id).populate('userType');
-      if (user.userType !== 'ADMIN') {
+    let currentUser = await User.findById(req.user.id).populate(['userType', 'email']);
+      if (currentUser.userType !== 'ADMIN') {
         return res.status(UNAUTHORIZED).json({error: "Action inerdite! Uniquement l/'administrateur posséde ce droit "});
       }
 
@@ -157,6 +158,7 @@ const addUser = async (req, res) => {
     });
 
     if (userType === CLIENT) {
+let user = await User.findOne({ email })
       let client = new Client({
         firstName,
         lastName,
@@ -167,6 +169,17 @@ const addUser = async (req, res) => {
         user: req.user.id
       });
 
+      if (client?.email === user?.email) {
+        console.log({
+          "clientEmail": client.email,
+          "email": email
+        })
+        return res.status(BAD_REQUEST).json({ errors: [{ msg: 'Client déja existant!' }] });
+      }
+      const salt = await bcrypt.genSalt(rounds);
+
+      //hash user password
+      client.password = await bcrypt.hash(password, salt);
       await client.save()
     }
 
@@ -207,21 +220,21 @@ const addUser = async (req, res) => {
         
       });
 
-      await respReglement
+      await respReglement.save()
     }
     
     // encrypt password before saving in db
     // define salt
-    const salt = await bcrypt.genSalt(rounds);
+    //const salt = await bcrypt.genSalt(rounds);
 
     //hash user password
-    user.password = await bcrypt.hash(password, salt);
+    //user.password = await bcrypt.hash(password, salt);
 
     // save new responsable in db
-    await responsable.save()
+    //await responsable.save()
 
     // return responsable data
-    res.json(responsable)
+    //res.json(responsable)
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Nous avons pas pu se connecter au serveur !");
@@ -251,4 +264,22 @@ if (email) userFields.email = email
   }
 }
 
-module.exports = { registerUser, loginUser, getUser , addUser, updateUser };
+const getClientList = async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.user.id).populate('userType')
+
+    if (!currentUser && (currentUser?.userType !== ADMIN || currentUser?.userType !== RESP_VENTE)) {
+      console.log(currentUser)
+      return res.status(UNAUTHORIZED).json({ errors: [{ msg: 'Non autorisé!' }] });
+    }
+
+    console.log(currentUser)
+    const clients = await User.find({ userType: CLIENT })
+    res.json(clients)
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Nous avons pas pu se connecter au serveur !")
+  }
+}
+
+module.exports = { registerUser, loginUser, getUser , addUser, updateUser, getClientList };

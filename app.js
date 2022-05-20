@@ -15,6 +15,7 @@ app.use('/respvente', require("./routes/respvente.route"))
 app.use('/respstock', require("./routes/respstock.route"))
 app.use('/respreglement', require("./routes/respreglement.route"))
 app.use('/products', require("./routes/article.route"))
+app.use('/commandes', require("./routes/commande.route"))
 
 
 app.listen(3010, () => {
