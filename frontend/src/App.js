@@ -13,6 +13,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import RegisterPage from "./components/layout/RegisterPage";
 import LoginPage from "./components/layout/LoginPage";
+import DashboardContainer from "./components/layout/DashboardContainer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/dashboard" component={DashboardContainer} />
         </Switch>
       </div>
     </BrowserRouter>
