@@ -1,36 +1,25 @@
-import { Button } from '@mui/material'
-import React, { Fragment, useState, useRef } from 'react'
-import { Scatter } from 'react-chartjs-2';
-
-import Drawer from './Drawer'
+import React, { Fragment } from 'react'
+import { Col, Container, Nav, Row } from 'react-bootstrap'
+import DashboardDetails from './DashboardDetails'
 
 const DashboardContainer = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false)
-
-  function toggleDrawer () {
-    return setDrawerOpen(!drawerOpen)
-  }
-
   return (
     <Fragment>
-      <Button onClick={() => toggleDrawer()}>Menu</Button>
-      <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} onOpen={() => setDrawerOpen(true)}/>
-<Scatter datasetIdKey='id'
-  data={{
-    labels: ['Jun', 'Jul', 'Aug'],
-    datasets: [
-      {
-        id: 1,
-        label: '',
-        data: [5, 6, 7],
-      },
-      {
-        id: 2,
-        label: '',
-        data: [3, 2, 1],
-      },
-    ],
-  }} />
+      <Container fluid>
+        <Row>
+          <Col style={{ backgroundColor: 'darkblue', height: '100%', position: 'fixed', width: '20%' }}>
+            <Nav defaultActiveKey='/home' className='flex-column' style={{ fontSize: '1.25rem', padding: '20% 5%', fontWeight: 'bold', color: 'white' }}>
+              <Nav.Item href='#' style={{ marginBlock: '10%', whiteSpace: 'nowrap', color: 'yellow' }}><i className="fa fa-solid fa-gauge mx-3"></i>Vue d'Ensemble</Nav.Item>
+              <Nav.Item href='#' style={{ marginBlock: '10%' }}><i className="fa fa-solid fa-gear mx-3"></i>Paramètres</Nav.Item>
+              <Nav.Item href='#' style={{ marginBlock: '10%' }}><i className="fa fa-solid fa-users mx-3"></i>Comptes</Nav.Item>
+              <Nav.Item href='#' style={{ marginBlock: '10%' }}>
+              <i className="fa fa-solid fa-store mx-3"></i>Inventaire
+              </Nav.Item>
+            </Nav>
+          </Col>
+          <Col><DashboardDetails /></Col>
+        </Row>
+      </Container>
     </Fragment>
   )
 }
