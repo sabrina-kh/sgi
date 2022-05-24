@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose")
 
-const factureSchema = new Schema({
+const FactureSchema = new Schema({
     respVente: {
         type: Schema.Types.ObjectId,
         ref: 'user'
@@ -18,5 +18,5 @@ const factureSchema = new Schema({
     timestamps:true 
 })
 
-const facture = model("facture", factureSchema)
+const facture = model("facture", FactureSchema)
 module.exports = facture

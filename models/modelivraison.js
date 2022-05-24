@@ -1,11 +1,11 @@
 const { model, Schema } = require("mongoose")
 
-const BsSchema = new Schema({
-    respvente: {
+const ModelivraisonSchema = new Schema({
+    respstock: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
-    numbs: {
+    codemodelivraison: {
         type: Number,
         required: true
     },
@@ -14,5 +14,5 @@ const BsSchema = new Schema({
     timestamps:true 
 })
 
-const bs = model("bs", BsSchema)
-module.exports = bs
+const Modelivraison = model("modelivraison", ModelivraisonSchema)
+module.exports = modelivraison

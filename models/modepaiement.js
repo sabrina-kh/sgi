@@ -1,11 +1,11 @@
 const { model, Schema } = require("mongoose")
 
-const BsSchema = new Schema({
+const ModepaiementSchema = new Schema({
     respvente: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
-    numbs: {
+    codemodepaiement: {
         type: Number,
         required: true
     },
@@ -14,5 +14,5 @@ const BsSchema = new Schema({
     timestamps:true 
 })
 
-const bs = model("bs", BsSchema)
-module.exports = bs
+const modepaiement= model("modepaiement", ModepaiementSchema)
+module.exports = modepaiement
