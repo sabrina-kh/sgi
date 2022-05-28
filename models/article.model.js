@@ -10,7 +10,7 @@ const ArticleSchema = new Schema({
         required: true,
         unique: true
     },
-    désignation: {
+    designation: {
         type: String,
         required: true,
         unique: true
@@ -18,36 +18,43 @@ const ArticleSchema = new Schema({
     prix: {
         type: Number,
         required: true,
-        unique: true
+        //unique: true
+        default: 0
     },
     degreEnfencement: {
         type: Number,
         required: true,
-        unique: true
+        //unique: true
+        default: 0
     },
-    température: {
+    temperature: {
         type: Number,
         required: true,
-        unique: true
+        //unique: true
+        default: 0
     },
     tav: {
         type: Number,
         required: true,
-        unique: true
+        //unique: true
+        default: 0
     },
     densité: {
         type: Number,
         required: true,
-        unique: true
+        //unique: true
+        default: 0
     },
     coefficient: {
         type: Number,
         required: true,
-        unique: true
+        //unique: true
+        default: 0
     },
-    quantité: {
+    quantity: {
         type: Number,
         required: true,
+        default: 0
     },
 },{
     timestamps:true 

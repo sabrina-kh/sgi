@@ -1,30 +1,32 @@
 const { model, Schema } = require("mongoose")
 
 const AcquitcautionSchema = new Schema({
-    respvente: {
+    respVente: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
-    moyentransport: {
+    moyenTransport: {
         type: Date,
         required: true
     },
-    schéma: {
+    schema: {
         type: String,
         required: true
     },
-    datesortie: {
+    dateSortie: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now()
     },
-    dateacquit: {
+    dateAcquit: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now()
     },
     
 },{
     timestamps:true 
 })
 
-const acquitcaution = model("acquitcaution", AcquitcautionSchema)
-module.exports = acquitcaution
+const Acquitcaution = model("acquitcaution", AcquitcautionSchema)
+module.exports = Acquitcaution

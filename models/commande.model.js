@@ -6,6 +6,10 @@ const CommandeSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    respVente: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
     lieuDeLivraison: {
       type: String,
       required: true,

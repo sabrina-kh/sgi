@@ -18,5 +18,5 @@ const FactureSchema = new Schema({
     timestamps:true 
 })
 
-const facture = model("facture", FactureSchema)
-module.exports = facture
+const Facture = model("facture", FactureSchema)
+module.exports = Facture
