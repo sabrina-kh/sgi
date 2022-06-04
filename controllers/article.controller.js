@@ -6,20 +6,20 @@ const res = require("express/lib/response");
 const { UNAUTHORIZED, NOT_FOUND } = require("http-status");
 const { ADMIN, RESP_VENTE } = require("../utils/constants");
 
-// add product
-const addProduct = async (req, res) => {
-  const { name } = req.body;
+// add Article
+const addArticle = async (req,res) => {
+    const { name } = req.body;
   try {
-    const codeProduct = crypto.randomBytes(4).toString("hex").toUpperCase();
+      const codeArticle= crypto.randomBytes(4).toString('hex').toUpperCase()
 
-    const newProduct = new Article({
-      respVente: req.user.id,
-      name,
-      code: codeProduct,
-    });
+      const newArticle = new Article({
+          respVente: req.user.id,
+          name,
+          code: codeArticle
+      })
 
-    const product = await newProduct.save();
-    res.json(product);
+      const article = await newArticle.save()
+      res.json(article)
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Nous avons pas pu se connecter au serveur !");
@@ -73,42 +73,4 @@ const updateArticle = async (req, res) => {
   }
 };
 
-// modifier prix d'article
-const updateArticlePrice = async (req, res) => {
-  const { prix } = req.body;
-  const priceObject = {};
-  if (prix) priceObject.prix = prix;
-  try {
-    const currentUser = await User.findById(req.user.id);
-
-    if (currentUser?.userType !== "ADMIN" || currentUser?.userType.toString() !== RESP_VENTE) {
-      console.log(currentUser?.userType)
-      return res
-        .status(UNAUTHORIZED)
-        .json({ message: "vous n'êtes pas autorisé" });
-    }
-
-    let article = await Article.findById(req.params.articleId);
-    if (!article) {
-      res.status(NOT_FOUND).json({ message: "Article non trouvé" });
-    }
-
-    article = await Article.findByIdAndUpdate(
-      req.params.articleId,
-      { $set: priceObject },
-      { new: true }
-    );
-    res.json(article);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Nous avons pas pu se connecter au serveur !");
-  }
-};
-
-module.exports = {
-  addProduct,
-  getArticleList,
-  getArticleById,
-  deleteArticle,
-  updateArticlePrice,
-};
+module.exports = { addArticle,getArticleList, getArticleById, deleteArticle }

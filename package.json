@@ -8,13 +8,13 @@
     "start": "node app.js",
     "backend": "nodemon app.js",
     "frontend": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+    "dev": "concurrently \"npm run backend \" \"npm run frontend\""
   },
   "author": "Sabrina Khlifa && Amal Mbarki",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "chart.js": "^3.7.1",
+    "chart.js": "^3.8.0",
     "config": "^3.3.7",
     "express": "^4.18.1",
     "express-validator": "^6.14.0",
