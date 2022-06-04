@@ -3,7 +3,7 @@ const res = require("express/lib/response");
 const Acquitcaution = require("../models/acquitcaution.model");
 
 // afficher liste des Acquitcautions
-const getAcquitcautionList = async (req,res) => {
+const getAcquitCautionList = async (req,res) => {
     try {
          const acquitcautionList = await Acquitcaution.find().populate('respVente','userType')
         res.json(acquitcautionList)
@@ -53,4 +53,4 @@ const updateAcquitcaution = async (req,res) => {
     }
 }
 
-module.exports={getAcquitcautionList, getAcquitcautionById, deleteAcquitcaution,updateAcquitcaution}
+module.exports={getAcquitCautionList, getAcquitcautionById, deleteAcquitcaution,updateAcquitcaution}
