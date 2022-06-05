@@ -5,7 +5,7 @@ const Acquitcaution = require("../models/acquitcaution.model");
 // afficher liste des Acquitcautions
 const getAcquitCautionList = async (req,res) => {
     try {
-         const acquitcautionList = await Acquitcaution.find().populate('respVente','userType')
+         const acquitcautionList = await Acquitcaution.find().populate('respReglement','userType')
         res.json(acquitcautionList)
     } catch (error) {
         console.error(error.message);

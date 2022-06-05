@@ -1,7 +1,7 @@
 const { model, Schema } = require("mongoose")
 
 const AcquitcautionSchema = new Schema({
-    respvente: {
+    respReglement: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },

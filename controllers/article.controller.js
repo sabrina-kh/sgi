@@ -10,6 +10,10 @@ const { ADMIN, RESP_VENTE } = require("../utils/constants");
 const addArticle = async (req,res) => {
     const { name } = req.body;
   try {
+    const currentUser = await User.findById(req.user.id);
+    if (currentUser.userType !== RESP_STOCK) {
+      return res.status(UNAUTHORIZED).json({ message: "Non Autorisé" });
+    }
       const codeArticle= crypto.randomBytes(4).toString('hex').toUpperCase()
 
       const newArticle = new Article({
@@ -51,6 +55,10 @@ const getArticleById = async (req, res) => {
 // supprimer article
 const deleteArticle = async (req, res) => {
   try {
+    const currentUser = await User.findById(req.user.id);
+    if (currentUser.userType !== RESP_STOCK) {
+      return res.status(UNAUTHORIZED).json({ message: "Non Autorisé" });
+    }
     let article = await Article.findById(req.params.articleId);
     if (!article) {
       return res.json({ error: "article introuvable " });

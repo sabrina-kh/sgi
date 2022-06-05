@@ -9,7 +9,7 @@ const createCommande = async (req, res) => {
     let user = await User.findById(req.user.id).populate("userType");
     if (user?.userType !== "CLIENT") {
       return res.json({
-        error: "Action inerdite! Uniquement le client posséde ce droit ",
+        error: "Action inerdite! Uniquement le client ou Responsable de vente posséde ce droit ",
       });
     }
 

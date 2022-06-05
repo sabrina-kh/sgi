@@ -1,10 +1,15 @@
 const express = require("express");
 const res = require("express/lib/response");
 const Facture = require("../models/facture.model");
+const { RESP_REGLEMENT } = require("../utils/constants");
 
 // afficher liste des Factures
 const getFactureList = async (req,res) => {
     try {
+        const currentUser = await User.findById(req.user.id);
+        if (currentUser.userType !== RESP_REGLEMENT) {
+          return res.status(UNAUTHORIZED).json({ message: "Non Autorisé" });
+        }
          const factureList = await Facture.find().populate('respVente','userType')
         res.json(factureList)
     } catch (error) {
@@ -17,6 +22,10 @@ const getFactureList = async (req,res) => {
 // afficher une Facture par id
 const getFactureById = async (req,res) => {
     try {
+        const currentUser = await User.findById(req.user.id);
+    if (currentUser.userType !== RESP_REGLEMENT) {
+      return res.status(UNAUTHORIZED).json({ message: "Non Autorisé" });
+    }
         const facture = await Facture.findById(req.params.factureId).populate('respVente','userType')
 res.json(facture)
     } catch (error) {

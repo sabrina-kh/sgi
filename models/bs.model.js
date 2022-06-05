@@ -1,7 +1,7 @@
 const { model, Schema } = require("mongoose")
 
 const BsSchema = new Schema({
-    respvente: {
+    respStock: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
