@@ -1,12 +1,12 @@
 const express = require("express");
 const res = require("express/lib/response");
-const Respstock = require("../models/respstock.model");
+const RespStock = require("../models/respStock.model");
 
 
 
 const getrespStockList = async (req,res) => {
     try {
-         const respStockList= await Respstock.find().populate('user','userType')
+         const respStockList= await RespStock.find().populate('user','userType')
         res.json(respStockList)
     } catch (error) {
         console.error(error.message);
@@ -17,7 +17,7 @@ const getrespStockList = async (req,res) => {
 //////
 const getRespStockById = async (req,res) => {
     try {
-        const respstock = await Respstock.findById(req.params.respstockId).populate('user','userType')
+        const respstock = await RespStock.findById(req.params.respstockId).populate('user','userType')
 res.json(respstock)
     } catch (error) {
         console.error(error.message);
@@ -28,7 +28,7 @@ res.json(respstock)
 // delete respstock
 const deleteRespstock = async (req,res) => {
     try {
-        let respstock = await Respstock.findById(req.params.respstockId)
+        let respstock = await RespStock.findById(req.params.respstockId)
         if (!respstock ) {
             return res.json({error: "responsable de stock  introuvable "});
         }

@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose")
 
-const RespstockSchema = new Schema({
+const RespVenteSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref:'user'
@@ -21,15 +21,16 @@ const RespstockSchema = new Schema({
       },
       userType: {
         type: String,
-        default: "RESP_STOCK",
+        default: "RESP_VENTE",
       },
       company: {
         type: String,
         required: true,
       },
+    
 },{
     timestamps:true 
 })
 
-const Respstock = model("respstock", RespstockSchema)
-module.exports = Respstock
+const RespVente = model("respVente", RespVenteSchema)
+module.exports = RespVente

@@ -1,5 +1,5 @@
 const express = require("express");
-const { getrespReglementList, deleteRespReglement, getRespReglementById } = require("../controllers/respreglement.controller");
+const { getrespReglementList, deleteRespReglement, getRespReglementById } = require("../controllers/respReglement.controller");
 const auth = require("../middlewares/auth");
 const router = express.Router();
 

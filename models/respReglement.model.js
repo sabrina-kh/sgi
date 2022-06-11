@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose")
 
-const RespreglementSchema = new Schema({
+const RespReglementSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref:'user'
@@ -32,5 +32,5 @@ const RespreglementSchema = new Schema({
     timestamps:true 
 })
 
-const Respreglement = model("respreglement", RespreglementSchema)
-module.exports = Respreglement
+const RespReglement = model("respReglement", RespReglementSchema)
+module.exports = RespReglement

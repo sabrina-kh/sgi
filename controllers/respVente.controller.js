@@ -1,11 +1,11 @@
 const express = require("express");
 const res = require("express/lib/response");
-const Respvente = require("../models/respvente.model");
+const RespVente = require("../models/respVente.model");
 
 
 const getrespVenteList = async (req,res) => {
     try {
-         const respVenteList= await Respvente.find().populate('user','userType')
+         const respVenteList= await RespVente.find().populate('user','userType')
         res.json(respVenteList)
     } catch (error) {
         console.error(error.message);
@@ -16,7 +16,7 @@ const getrespVenteList = async (req,res) => {
 // resp by id
 const getRespVenteById = async (req,res) => {
     try {
-        const respvente = await Respvente.findById(req.params.respventeId).populate('user','userType')
+        const respvente = await RespVente.findById(req.params.respventeId).populate('user','userType')
 res.json(respvente)
     } catch (error) {
         console.error(error.message);
@@ -26,7 +26,7 @@ res.json(respvente)
 // delete respvente
 const deleteRespvente = async (req,res) => {
     try {
-        let respvente = await Respvente.findById(req.params.respventeId)
+        let respvente = await RespVente.findById(req.params.respventeId)
         if (!respvente) {
             return res.json({error: "responsable de vente introuvable "});
         }

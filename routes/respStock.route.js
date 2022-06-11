@@ -1,5 +1,5 @@
 const express = require("express");
-const { getrespStockList, deleteRespstock, getRespStockById } = require("../controllers/respstock.controller");
+const { getrespStockList, deleteRespstock, getRespStockById } = require("../controllers/respStock.controller");
 const auth = require("../middlewares/auth");
 const router = express.Router();
 

@@ -1,6 +1,6 @@
 const express = require("express");
-const { deleteRespstock } = require("../controllers/respstock.controller");
-const { getrespVenteList, deleteRespvente, getRespVenteById } = require("../controllers/respvente.controller");
+const { deleteRespstock } = require("../controllers/respStock.controller");
+const { getrespVenteList, deleteRespvente, getRespVenteById } = require("../controllers/respVente.controller");
 const auth = require("../middlewares/auth");
 const router = express.Router();
 

@@ -1,11 +1,11 @@
 const express = require("express");
 const res = require("express/lib/response");
-const Respreglement = require("../models/respreglement.model");
+const RespReglement = require("../models/respReglement.model");
 
 
 const getrespReglementList = async (req,res) => {
     try {
-         const respReglementList= await Respreglement.find().populate('user','userType')
+         const respReglementList= await RespReglement.find().populate('user','userType')
         res.json(respReglementList)
     } catch (error) {
         console.error(error.message);
@@ -16,7 +16,7 @@ const getrespReglementList = async (req,res) => {
 //////
 const getRespReglementById = async (req,res) => {
     try {
-        const respstock = await Respreglement.findById(req.params.respreglementId).populate('user','userType')
+        const respstock = await RespReglement.findById(req.params.respreglementId).populate('user','userType')
 res.json(respreglement)
     } catch (error) {
         console.error(error.message);
@@ -26,12 +26,12 @@ res.json(respreglement)
 /// delete RespReglement
 const deleteRespReglement = async (req,res) => {
     try {
-        let respreglement = await Respreglement.findById(req.params.respreglementId)
+        let respreglement = await RespReglement.findById(req.params.respreglementId)
         if (!respreglement ) {
             return res.json({error: "responsable de reglement  introuvable "});
         }
 
-        respreglement = await Respreglement.findByIdAndRemove(req.params.respreglementId)
+        respreglement = await RespReglement.findByIdAndRemove(req.params.respreglementId)
         res.json({message: " Responsable supprimé "})
     } catch (error) {
         console.error(error.message);

@@ -13,8 +13,9 @@ const {
 
 const router = express.Router();
 
-router.post("/", auth, addProduct);
+//router.post("/", auth, addProduct);
+//router.route('/').post(auth, addProduct)
 
-router.put("/pricing", auth, updateArticlePrice);
+//router.put("/pricing", auth, updateArticlePrice);
 
 module.exports = router;
