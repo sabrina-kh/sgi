@@ -8,7 +8,7 @@ import {
 import Navigationbar from "./components/nav/Navigationbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Home from "./components/layout/Home";
+import Home from "./components/layout/landing/Home";
 //import Register from "./components/auth/Register";
 //import Login from "./components/auth/Login";
 //import RegisterPage from "./components/layout/RegisterPage";
@@ -18,7 +18,7 @@ import DashboardContainer from "./components/layout/DashboardContainer";
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="app">
         <Navigationbar colour="dodgerblue" />
         <Switch>
           <Route exact path="/" component={Home} />

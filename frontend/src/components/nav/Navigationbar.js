@@ -1,31 +1,29 @@
 import react, { Fragment, useState } from 'react'
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
+import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import LoginModal from '../layout/LoginModal'
 import RegisterModal from '../layout/RegisterModal'
+import Drawer from './Drawer'
+import './navigationBar.css'
 
 const Navigationbar = ({ colour }) => {
-  const [showRegisterModal, setShowRegisterModal] = useState(false)
-  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showDrawer, setShowDrawer] = useState(false)
 
-  const toggleRegisterModal = () => {
-    setShowRegisterModal(!showRegisterModal)
-  }
-
-  const toggleLoginModal = () => {
-    setShowLoginModal(!showLoginModal)
+  const toggleDrawer = () => {
+    setShowDrawer(!showDrawer)
   }
 
   return (
     <Fragment>
-      <nav className='navbar navbar-expand-lg navbar-dark bg-primary px-5 py-3'>
-        <div className='container-fluid'>
+      <nav className='navigation navbar navbar-expand-lg navbar-dark px-5 py-5'>
+        <div className='container-fluid navigation'>
           <Link
-            to='/'
+            to='#'
             className='navbar-brand'
-            style={{ fontFamily: ['Oswald'], fontSize: '2rem' }}
+            style={{ fontFamily: ['Oswald'], fontSize: '4rem' }}
+            onMouseDown={toggleDrawer}
           >
-            SystemGI
+            <i className="fa fa-solid fa-align-left"></i>
           </Link>
           <button
             className='navbar-toggler'
@@ -42,36 +40,19 @@ const Navigationbar = ({ colour }) => {
           <div className='collapse navbar-collapse' id='navbarColor01'>
             <ul className='navbar-nav ms-auto'>
               <li className='nav-item'>
-                <Link to='/' className='nav-link active' href='#'>
-                  <i className='fa fa-solid fa-house-user'></i> Accueil
-                  <span className='visually-hidden'>(current)</span>
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link
-                  to='#'
-                  className='nav-link'
-                  href='#'
-                  onClick={() => toggleRegisterModal()}
-                >
-                  Créer Compte Admin
-                </Link>
-              </li>
-              <li className='nav-item'>
                 <Link
                   className='nav-link'
                   href='#'
-                  onClick={() => toggleLoginModal()}
+                  to='/register'
                 >
-                  Se connecter
+                  <Button className='px-5 py-2 loginBtn'>Créer Compte</Button>
                 </Link>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-      <RegisterModal show={showRegisterModal} onHide={toggleRegisterModal} />
-      <LoginModal show={showLoginModal} onHide={toggleLoginModal} />
+      <Drawer show={showDrawer} onHide={() => setShowDrawer(false)} width={20} />
     </Fragment>
   )
 }

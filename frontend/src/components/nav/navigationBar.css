@@ -1,0 +1,32 @@
+.navigation {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.loginBtn {
+    font-size: 2rem !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+    text-transform: capitalize !important;
+    font-style: italic !important;
+    background-color: whitesmoke !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    border-radius: 30px !important;
+}
+
+.drawer {
+    padding-block: 10% !important;
+    padding-inline: 12% !important;
+}
+
+.side-menu {
+    font-size: 2rem !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+    text-transform: capitalize !important;
+    font-style: italic !important;
+   list-style-type: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    border-radius: 30px !important;
+}
