@@ -31,5 +31,16 @@ const RespStockSchema = new Schema({
     timestamps:true 
 })
 
+RespStockSchema.pre('save', async function (next) {
+	if (!this.isModified('password')) return next();
+	try {
+		const salt = await genSalt(10);
+		this.password = await hash(this.password, salt);
+		return next();
+	} catch (error) {
+		return next(error);
+	}
+});
+
 const RespStock = model("respStock", RespStockSchema)
 module.exports = RespStock

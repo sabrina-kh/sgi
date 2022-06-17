@@ -1,10 +1,10 @@
 const express = require("express");
-const { getrespReglementList, deleteRespReglement, getRespReglementById } = require("../controllers/respReglement.controller");
+const { deleteRespReglement, getRespReglementById, getRespReglementList } = require("../controllers/respReglement.controller");
 const auth = require("../middlewares/auth");
 const router = express.Router();
 
 
-router.get("/", auth, getrespReglementList);
-router.get("/:respreglementId", auth, getRespReglementById);
-router.delete("/:respreglementId", auth, deleteRespReglement);
+router.get("/", auth, getRespReglementList);
+router.get("/:id", auth, getRespReglementById);
+router.delete("/:id", auth, deleteRespReglement);
 module.exports = router

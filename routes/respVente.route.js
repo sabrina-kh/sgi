@@ -1,11 +1,10 @@
 const express = require("express");
-const { deleteRespstock } = require("../controllers/respStock.controller");
-const { getrespVenteList, deleteRespvente, getRespVenteById } = require("../controllers/respVente.controller");
+const { getRespVenteById, getRespVenteList, deleteRespVente } = require("../controllers/respVente.controller");
 const auth = require("../middlewares/auth");
 const router = express.Router();
 
 
-router.get("/", auth, getrespVenteList);
-router.get("/:respventeId", auth, getRespVenteById);
-router.delete("/:respventeId", auth, deleteRespvente);
+router.get("/", auth, getRespVenteList);
+router.get("/:id", auth, getRespVenteById);
+router.delete("/:id", auth, deleteRespVente);
 module.exports = router

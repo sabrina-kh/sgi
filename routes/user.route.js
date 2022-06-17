@@ -6,6 +6,7 @@ const {
   addUser,
   updateUser,
   getClientList,
+  getUserList,
 } = require("../controllers/user.controller");
 const { check, validationResult } = require("express-validator");
 const auth = require("../middlewares/auth");
@@ -40,8 +41,11 @@ router.post(
 );
 
 router.get("/", auth, getUser);
+
 router.get("/client_list", auth, getClientList)
 
 router.put('/:userId', auth, updateUser)
+
+router.get("/list", getUserList)
 
 module.exports = router;

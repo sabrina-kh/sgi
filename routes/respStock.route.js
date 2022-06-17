@@ -1,10 +1,10 @@
 const express = require("express");
-const { getrespStockList, deleteRespstock, getRespStockById } = require("../controllers/respStock.controller");
+const { getRespStockById, getRespStockList, deleteRespStock } = require("../controllers/respStock.controller");
 const auth = require("../middlewares/auth");
 const router = express.Router();
 
 
-router.get("/", auth, getrespStockList);
-router.get("/:respstockId", auth, getRespStockById);
-router.delete("/:respstockId", auth, deleteRespstock);
+router.get("/", auth, getRespStockList);
+router.get("/:id", auth, getRespStockById);
+router.delete("/:id", auth, deleteRespStock);
 module.exports = router

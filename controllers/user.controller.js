@@ -1,13 +1,8 @@
-const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user.model');
-const Client = require('../models/client.model');
-const Respvente = require('../models/respVente.model');
-const Respstock = require('../models/respStock.model');
-const Respreglement = require('../models/respReglement.model');
 const {
 	BAD_REQUEST,
 	UNAUTHORIZED,
@@ -15,15 +10,17 @@ const {
 	NOT_FOUND,
 } = require('http-status');
 const {
-	CLIENTS,
 	CLIENT,
 	RESP_VENTE,
+	ADMIN,
 	RESP_STOCK,
 	RESP_REGLEMENT,
-	ADMIN,
 } = require('../utils/constants');
 const { findOne } = require('../models/user.model');
+const Client = require('../models/client.model');
+const RespStock = require('../models/respStock.model');
 const RespVente = require('../models/respVente.model');
+const RespReglement = require('../models/respReglement.model');
 
 // bcryptjs configs
 const rounds = 10;
@@ -45,6 +42,13 @@ const registerUser = async (req, res) => {
 			return res
 				.status(BAD_REQUEST)
 				.json({ errors: [{ msg: 'Utilisateur déja existant!' }] });
+		}
+
+		let admins = await User.find({ userType: ADMIN })
+		if (admins?.length >= 1) {
+			return res
+				.status(BAD_REQUEST)
+				.json({ errors: [{ msg: 'Un seul admin est permis!' }] });
 		}
 		// create new user
 		user = new User({
@@ -167,9 +171,17 @@ const addUser = async (req, res) => {
 			});
 		}
 
-		if (userType === 'ADMIN') {
-			return res.json({
+		if (userType == ADMIN) {
+			return res.status(UNAUTHORIZED).json({
 				error: 'Action interdite! Un seul administrateur est permis ',
+			});
+		}
+
+		let user = await User.findOne({ email })
+		if (user) {
+			return res.status(BAD_REQUEST).json({
+				error:
+					"Utilisateur existant!",
 			});
 		}
 
@@ -183,74 +195,54 @@ const addUser = async (req, res) => {
 			userType,
 		});
 
-		if (responsable?.userType == CLIENT) {
-			let userToCheck = await User.findOne({ email });
-			if (userToCheck) {
-				return res
-					.status(BAD_REQUEST)
-					.json({ errors: [{ msg: 'Utilisateur déja existant!' }] });
-			}
+		if (userType == CLIENT) {
 			let client = new Client({
-				...responsable,
-				userType: CLIENT,
-				user: req.user.id,
+				user: responsable._id,
+				firstName: responsable.firstName,
+				lastName: responsable.lastName,
+				email: responsable.email,
+				company: responsable.company,
+				password: responsable.password,
+				userType: CLIENT
 			});
-			const salt = await bcrypt.genSalt(rounds);
+			await client.save()
+		} 
 
-			//hash user password
-			client.password = await bcrypt.hash(password, salt);
-			await client.save();
-		}
-
-		if (responsable?.userType == RESP_STOCK) {
-			let userToCheck = await User.findOne({ email });
-			if (userToCheck) {
-				return res
-					.status(BAD_REQUEST)
-					.json({ errors: [{ msg: 'Utilisateur déja existant!' }] });
-			}
-			let respStock = new Client({
-				...responsable,
+		if (userType == RESP_STOCK) {
+			let respStock = new RespStock({
+				user: responsable._id,
+				firstName: responsable.firstName,
+				lastName: responsable.lastName,
+				email: responsable.email,
+				company: responsable.company,
+				password: responsable.password,
 				userType: RESP_STOCK,
-				user: req.user.id,
 			});
-			const salt = await bcrypt.genSalt(rounds);
-
-			//hash user password
-			respStock.password = await bcrypt.hash(password, salt);
 			await respStock.save();
-		}
+		} 
 
-		if (responsable?.userType == RESP_VENTE) {
-			let userToCheck = await User.findOne({ email });
-			if (userToCheck) {
-				return res
-					.status(BAD_REQUEST)
-					.json({ errors: [{ msg: 'Client déja existant!' }] });
-			}
+		if (userType == RESP_VENTE) {
 			let respVente = new RespVente({
-				...responsable,
+				user: responsable._id,
+				firstName: responsable.firstName,
+				lastName: responsable.lastName,
+				email: responsable.email,
+				company: responsable.company,
+				password: responsable.password,
 				userType: RESP_VENTE,
-				user: req.user.id,
 			});
-			const salt = await bcrypt.genSalt(rounds);
-
-			//hash user password
-			respVente.password = await bcrypt.hash(password, salt);
 			await respVente.save();
 		}
 
 		if (responsable?.userType == RESP_REGLEMENT) {
-			let userToCheck = await User.findOne({ email });
-			if (userToCheck) {
-				return res
-					.status(BAD_REQUEST)
-					.json({ errors: [{ msg: 'Client déja existant!' }] });
-			}
-			let respReglement = new Client({
-				...responsable,
+			let respReglement = new RespReglement({
+				user: responsable._id,
+				firstName: responsable.firstName,
+				lastName: responsable.lastName,
+				email: responsable.email,
+				company: responsable.company,
+				password: responsable.password,
 				userType: RESP_REGLEMENT,
-				user: req.user.id,
 			});
 			const salt = await bcrypt.genSalt(rounds);
 
@@ -261,16 +253,16 @@ const addUser = async (req, res) => {
 
 		// encrypt password before saving in db
 		// define salt
-		//const salt = await bcrypt.genSalt(rounds);
+		const salt = await bcrypt.genSalt(rounds);
 
 		//hash user password
-		//user.password = await bcrypt.hash(password, salt);
+		responsable.password = await bcrypt.hash(password, salt);
 
 		// save new responsable in db
-		//await responsable.save()
+		await responsable.save()
 
 		// return responsable data
-		//res.json(responsable)
+		res.json(responsable)
 	} catch (error) {
 		console.error(error.message);
 		res.status(500).send('Nous avons pas pu se connecter au serveur !');
@@ -324,6 +316,16 @@ const getClientList = async (req, res) => {
 	}
 };
 
+const getUserList = async (req, res) => {
+	try {
+		const users = await User.find()
+		res.json(users)
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).send('Nous avons pas pu se connecter au serveur !');
+	}
+}
+
 module.exports = {
 	registerUser,
 	loginUser,
@@ -331,4 +333,5 @@ module.exports = {
 	addUser,
 	updateUser,
 	getClientList,
+	getUserList
 };

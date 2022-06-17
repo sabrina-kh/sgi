@@ -32,5 +32,16 @@ const RespReglementSchema = new Schema({
     timestamps:true 
 })
 
+RespReglementSchema.pre('save', async function (next) {
+	if (!this.isModified('password')) return next();
+	try {
+		const salt = await genSalt(10);
+		this.password = await hash(this.password, salt);
+		return next();
+	} catch (error) {
+		return next(error);
+	}
+});
+
 const RespReglement = model("respReglement", RespReglementSchema)
 module.exports = RespReglement
