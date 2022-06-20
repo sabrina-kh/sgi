@@ -3,27 +3,40 @@ const crypto = require("crypto");
 const Article = require("../models/article.model");
 const User = require("../models/user.model");
 const res = require("express/lib/response");
-const { UNAUTHORIZED, NOT_FOUND } = require("http-status");
-const { ADMIN, RESP_VENTE } = require("../utils/constants");
+const { UNAUTHORIZED, NOT_FOUND, OK, FORBIDDEN } = require("http-status");
+const { ADMIN, RESP_VENTE, RESP_STOCK } = require("../utils/constants");
 
 // add Article
 const addArticle = async (req,res) => {
-    const { name } = req.body;
+    const { prix, designation, degreEnfencement, temperature, tav, densite, coefficient, quantity } = req.body;
   try {
     const currentUser = await User.findById(req.user.id);
-    if (currentUser.userType !== RESP_STOCK) {
-      return res.status(UNAUTHORIZED).json({ message: "Non Autorisé" });
-    }
+    if (currentUser.userType !== ADMIN && currentUser.userType !== RESP_STOCK) {
+			return res.status(UNAUTHORIZED).json({
+				errors: [
+					{
+						msg: "Requête réservée uniquement `a l'administrateur ou le responsable du stock !",
+					},
+				],
+			});
+		}
       const codeArticle= crypto.randomBytes(4).toString('hex').toUpperCase()
 
       const newArticle = new Article({
-          respVente: req.user.id,
-          name,
+          respStock: req.user.id,
+          prix,
+          designation,
+          degreEnfencement,
+          temperature,
+          tav,
+          densite,
+          coefficient,
+          quantity,
           code: codeArticle
       })
 
       const article = await newArticle.save()
-      res.json(article)
+      res.status(OK).json(article)
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Nous avons pas pu se connecter au serveur !");
@@ -32,7 +45,17 @@ const addArticle = async (req,res) => {
 // afficher liste des articles
 const getArticleList = async (req, res) => {
   try {
-    const articleList = await Article.find().populate("respVente", "userType");
+    const currentUser = await User.findById(req.user.id)
+    if (currentUser?.userType !== ADMIN && currentUser?.userType !== RESP_STOCK) {
+      return res.status(FORBIDDEN).json({
+				errors: [
+					{
+						msg: "Requête réservée uniquement `a l'administrateur ou le responsable du stock !",
+					},
+				],
+			});
+    }
+    const articleList = await Article.find()
     res.json(articleList);
   } catch (error) {
     console.error(error.message);
@@ -81,4 +104,4 @@ const updateArticle = async (req, res) => {
   }
 };
 
-module.exports = { addArticle,getArticleList, getArticleById, deleteArticle }
+module.exports = { addArticle, getArticleList, getArticleById, deleteArticle }

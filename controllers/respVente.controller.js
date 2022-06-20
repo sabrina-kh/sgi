@@ -1,15 +1,7 @@
-const {
-	FORBIDDEN,
-	OK,
-	INTERNAL_SERVER_ERROR,
-	NOT_FOUND,
-} = require('http-status');
-const Client = require('../models/client.model');
-const User = require('../models/user.model');
-const { ADMIN, RESP_VENTE } = require('../utils/constants');
+const RespVente = require('../models/respVente.model');
+const { RESP_VENTE, ADMIN } = require('../utils/constants');
 
-// afficher liste des clients
-const getClientList = async (req, res) => {
+const getRespVenteList = async (req, res) => {
 	try {
 		let currentUser = await User.findById(req.user.id);
 		if (
@@ -24,8 +16,8 @@ const getClientList = async (req, res) => {
 				],
 			});
 		}
-		const clientList = await Client.find().populate('user', 'userType');
-		res.status(OK).json(clientList);
+		const respVenteList = await RespVente.find().populate('user', 'userType');
+		res.status(OK).json(respVenteList);
 	} catch (error) {
 		console.error(error.message);
 		res
@@ -33,9 +25,8 @@ const getClientList = async (req, res) => {
 			.send('Nous avons pas pu se connecter au serveur !');
 	}
 };
-
-// afficher un client par id
-const getClientById = async (req, res) => {
+// resp by id
+const getRespVenteById = async (req, res) => {
 	try {
 		let currentUser = await User.findById(req.user.id);
 		if (
@@ -50,8 +41,8 @@ const getClientById = async (req, res) => {
 				],
 			});
 		}
-		const client = await Client.findById(req.params.clientId);
-		res.status(OK).json(client);
+		const respVente = await RespVente.findById(req.params.id);
+		res.status(OK).json(respVente);
 	} catch (error) {
 		console.error(error.message);
 		res
@@ -59,9 +50,8 @@ const getClientById = async (req, res) => {
 			.send('Nous avons pas pu se connecter au serveur !');
 	}
 };
-
-// supprimer client
-const deleteClient = async (req, res) => {
+// delete respvente
+const deleteRespVente = async (req, res) => {
 	try {
 		let currentUser = await User.findById(req.user.id);
 		if (currentUser?.userType !== ADMIN) {
@@ -73,19 +63,19 @@ const deleteClient = async (req, res) => {
 				],
 			});
 		}
-		let client = await Client.findById(req.params.clientId);
-		if (!client) {
+		let respVente = await RespVente.findById(req.params.id);
+		if (!respVente) {
 			return res.status(NOT_FOUND).json({
 				errors: [
 					{
-						msg: 'Client introuvable!',
+						msg: 'Responsable introuvable!',
 					},
 				],
 			});
 		}
 
-		client = await Client.findByIdAndRemove(req.params.clientId);
-		res.status(OK).json({ message: 'client supprimé ' });
+		respVente = await Client.findByIdAndRemove(req.params.id);
+		res.status(OK).json({ message: 'Responsable supprimé ' });
 	} catch (error) {
 		console.error(error.message);
 		res
@@ -94,4 +84,4 @@ const deleteClient = async (req, res) => {
 	}
 };
 
-module.exports = { getClientList, getClientById, deleteClient };
+module.exports = { getRespVenteList, getRespVenteById, deleteRespVente };

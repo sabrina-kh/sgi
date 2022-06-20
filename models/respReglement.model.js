@@ -1,6 +1,6 @@
 const { model, Schema } = require("mongoose")
 
-const RespstockSchema = new Schema({
+const RespReglementSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref:'user'
@@ -21,15 +21,27 @@ const RespstockSchema = new Schema({
       },
       userType: {
         type: String,
-        default: "RESP_STOCK",
+        default: "RESP_REGLEMENT",
       },
       company: {
         type: String,
         required: true,
       },
+    
 },{
     timestamps:true 
 })
 
-const Respstock = model("respstock", RespstockSchema)
-module.exports = Respstock
+RespReglementSchema.pre('save', async function (next) {
+	if (!this.isModified('password')) return next();
+	try {
+		const salt = await genSalt(10);
+		this.password = await hash(this.password, salt);
+		return next();
+	} catch (error) {
+		return next(error);
+	}
+});
+
+const RespReglement = model("respReglement", RespReglementSchema)
+module.exports = RespReglement

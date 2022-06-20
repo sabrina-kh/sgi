@@ -1,4 +1,5 @@
 const { model, Schema } = require("mongoose")
+const { ADMIN } = require("../utils/constants")
 
 const userTypes = ['ADMIN', 'CLIENT', 'RESP_STOCK', 'RESP_VENTE','RESP_REGLEMENT']
 
@@ -18,9 +19,9 @@ const UserSchema = new Schema({
     },
     userType: {
         type: String,
-       required: true,
+       //required: true,
        enum: userTypes,
-        default:"ADMIN"
+       default: 'ADMIN'
     },
     company:  {
         type: String,

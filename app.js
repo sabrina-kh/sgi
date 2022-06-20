@@ -11,9 +11,9 @@ app.use(express.json({ extended: false }))
 // ---define routes---
 app.use('/users', require("./routes/user.route"))
 app.use('/clients', require("./routes/client.route"))
-app.use('/respvente', require("./routes/respvente.route"))
-app.use('/respstock', require("./routes/respstock.route"))
-app.use('/respreglement', require("./routes/respreglement.route"))
+app.use('/respvente', require("./routes/respVente.route"))
+app.use('/respstock', require("./routes/respStock.route"))
+app.use('/respreglement', require("./routes/respReglement.route"))
 app.use('/products', require("./routes/article.route"))
 app.use('/commandes', require("./routes/commande.route"))
 
