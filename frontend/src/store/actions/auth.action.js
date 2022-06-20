@@ -1,9 +1,12 @@
 import axios from "axios";
 import { GET_USER_DATA_FAILED, GET_USER_DATA_SUCCESS, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILED, REGISTER_SUCCESS } from "./actionTypes";
 import { toast } from 'react-toastify'
+import setToken from "../../utils/setToken";
 
 export const getUserData = () => async dispatch => {
-    if (localStorage.token) setToken(localStorage.token)
+    if (localStorage.token) {
+      setToken(localStorage.token)
+    }
   
     try {
       const res = await axios.get('/user/')

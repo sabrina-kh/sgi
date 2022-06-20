@@ -1,64 +1,62 @@
-import react from "react";
-import { Card } from "react-bootstrap";
-import { Button, TextField } from "@mui/material";
+import * as React from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import "./auth.css";
+import Input from "./Input";
 
-const Register = () => {
+export default function Register() {
   return (
-    <div>
-      <Card
-        variant="outlined"
-        style={{ padding: "10%", width: "100%", borderColor: "dodgeblue" }}
-      >
-        <form>
-          <TextField
-            id="outlined-basic"
-            label="Adresse Email"
-            variant="outlined"
-            style={{ padding: "0px", marginBlock: "3%", width: "100%" }}
+    <Container fluid>
+      <Row className="justify-content-center align-items-center py-3 title">
+        Créer Compte Admin
+      </Row>
+      <Row className="justify-content-between">
+        <Col>
+          <Input
+            type="text"
+            placeholder="Nom de famille"
+            icon="user"
+            value={null}
+            name="lastName"
           />
-          <TextField
-            id="outlined-basic"
-            label="Mot de Passe"
-            variant="outlined"
-            style={{ padding: "0px", marginBlock: "3%", width: "100%" }}
+          <Input
+            type="text"
+            placeholder="Nom"
+            icon="user"
+            value={null}
+            name="firstName"
           />
-          <TextField
-            id="outlined-basic"
-            label="Adresse Email"
-            variant="outlined"
-            style={{ padding: "0px", marginBlock: "3%", width: "100%" }}
+          <Input
+            type="text"
+            placeholder="Société"
+            icon="building-columns"
+            value={null}
+            name="company"
           />
-          <TextField
-          id="outlined-basic"
-          label="Adresse Email"
-          variant="outlined"
-          style={{ padding: "0px", marginBlock: "3%", width: "100%" }}
-        />
-        <TextField
-            id="outlined-basic"
-            label="Adresse Email"
-            variant="outlined"
-            style={{ padding: "0px", marginBlock: "3%", width: "100%" }}
+        </Col>
+        <Col>
+          <Input
+            type="email"
+            placeholder="Adresse E-mail"
+            icon="envelope"
+            value={null}
+            name="lastName"
           />
-          <TextField
-            id="outlined-basic"
-            label="Adresse Email"
-            variant="outlined"
-            style={{ padding: "0px", marginBlock: "3%", width: "100%" }}
+          <Input
+            type="password"
+            placeholder="Mot de Passe"
+            icon="lock"
+            value={null}
+            name="lastName"
           />
-          <br />
-          <Button
-            variant="contained"
-            size="small"
-            disableElevation
-            style={{ marginBlock: "3%", marginInline: "25%", width: "50%" }}
-          >
-            Se Connecter
-          </Button>
-        </form>
-      </Card>
-    </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col></Col>
+        <Col className="d-flex justify-content-center">
+          <Button className="cnxbtn">Retour</Button>
+          <Button className="cnxbtn">Valider</Button>
+        </Col>
+      </Row>
+    </Container>
   );
-};
-
-export default Register;
+}

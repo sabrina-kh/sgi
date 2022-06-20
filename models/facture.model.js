@@ -1,7 +1,7 @@
 const { model, Schema } = require("mongoose")
 
 const FactureSchema = new Schema({
-    respVente: {
+    respReglement: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },

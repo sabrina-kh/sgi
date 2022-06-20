@@ -4,6 +4,7 @@ import Register from "../../auth/Register";
 import Login from "../../auth/Login"
 
 import "./landing.css"
+import Navigationbar from "../../nav/Navigationbar";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
       }}
       fluid
     >
+       <Navigationbar colour="dodgerblue" />
       <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
         <h1 className="bienvenue">Bienvenue Dans la Platforme De <br/> Régie Nationale Des Alcools</h1>
 

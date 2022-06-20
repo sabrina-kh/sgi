@@ -25,7 +25,7 @@ res.json(acquitcaution)
     }
 }
 
-// supprimer client 
+// supprimer acquit caution 
 const deleteAcquitcaution = async (req,res) => {
     try {
         let acquitcaution = await Acquitcaution.findById(req.params.acquitcautionId)
@@ -42,7 +42,7 @@ const deleteAcquitcaution = async (req,res) => {
     }
 }
 
-// modifier client 
+// modifier acquit caution 
 const updateAcquitcaution = async (req,res) => {
     
     try {

@@ -1,12 +1,12 @@
 const { model, Schema } = require("mongoose")
 
 const AcquitcautionSchema = new Schema({
-    respReglement: {
+    respVente: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
     moyentransport: {
-        type: Date,
+        type: String,
         required: true
     },
     schéma: {
