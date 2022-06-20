@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import GraphAdmin from './GraphAdmin'
 
-const DashboardAdmin = () => {
+const DashboardAdmin = ({ showDrawer, setShowDrawer }) => {
 
     const [showDrawer, setShowDrawer] = useState(false)
 
@@ -26,7 +26,7 @@ const DashboardAdmin = () => {
             <Sidebar width={25} onHide={() => setShowDrawer(false)} show={showDrawer}/>
             </Col>
         </Row>
-        <Row className='px-5 py-5'>
+        <Row className='px-5 py-1' >
             <h1 className='text-center my-4' style={{ color: 'white' }}>Variation mensuelle de taux des comandes et des clients</h1>
             <GraphAdmin />
         </Row>

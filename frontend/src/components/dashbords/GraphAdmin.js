@@ -96,6 +96,7 @@ import {
   const styles = {
     fontFamily: 'sans-serif',
     textAlign: 'center',
+    //margin: '-10%'
   };
 
 const GraphAdmin = () => {
