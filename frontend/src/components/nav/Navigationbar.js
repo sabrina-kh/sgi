@@ -20,7 +20,7 @@ const Navigationbar = ({ colour }) => {
           <Link
             to='#'
             className='navbar-brand'
-            style={{ fontFamily: ['Oswald'], fontSize: '4rem' }}
+            style={{ fontFamily: ['Oswald'], fontSize: '2rem' }}
             onMouseDown={toggleDrawer}
           >
             <i className="fa fa-solid fa-align-left"></i>

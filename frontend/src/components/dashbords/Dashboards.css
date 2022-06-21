@@ -5,3 +5,27 @@
 .menu {
     color: black !important;
 }
+
+.dashboard-admin-container {
+    height: 100% !important;
+}
+
+.dashboard-admin-row-1 {
+    padding: 2% 2% 0 !important;
+    height: 100% !important;
+}
+
+.dashboard-admin-drawer-toggler {
+    font-family: 'Oswald', sans-serif !important;
+    font-size: 2rem !important;
+    color: white !important;
+}
+
+.dashboard-admin-graph-text {
+    color: white !important;
+}
+
+
+.dashboard-admin-graph-container {
+    height: 100vh !important;
+}

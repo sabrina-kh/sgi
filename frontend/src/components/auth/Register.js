@@ -52,9 +52,9 @@ export default function Register() {
       </Row>
       <Row>
         <Col></Col>
-        <Col className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-center px-3">
           <Button className="cnxbtn">Retour</Button>
-          <Button className="cnxbtn">Valider</Button>
+          <Button className="cnxbtn mx-3">Valider</Button>
         </Col>
       </Row>
     </Container>
