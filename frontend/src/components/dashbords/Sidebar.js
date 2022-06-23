@@ -96,7 +96,7 @@ const Sidebar = ({
 						{dropdown && (
 							<Fragment>
 								<Link
-									to="#"
+									to="/dashboard/utilisateurs"
 									onClick={onClickUsers}
 									className="my-2 mx-5 menu"
 									style={{
@@ -187,7 +187,7 @@ const Sidebar = ({
 						</Link>
 						<Link
 							to="#"
-							onClick={dispatch(logout())}
+							//onClick={dispatch(logout())}
 							className="my-4 menu"
 							style={{
 								color: 'black',

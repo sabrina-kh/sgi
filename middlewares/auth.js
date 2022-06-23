@@ -16,6 +16,6 @@ module.exports = (req, res, next) => {
     req.user = decryptedToken.user
     next()
   } catch (er) {
-    res.status(401).json({ msg: 'Token not found or invalid! Access denied' })
+    res.status(401).json({ msg: 'Token not found or invalid! Access denied222' })
   }
 }

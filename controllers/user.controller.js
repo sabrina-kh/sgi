@@ -76,7 +76,7 @@ const registerUser = async (req, res) => {
 				id: user.id,
 			},
 		};
-		jwt.sign(payload, 'secret', { expiresIn: '2h' }, (error, token) => {
+		jwt.sign(payload, 'secret', { expiresIn: 1000*60*60*2 }, (error, token) => {
 			if (error) throw error;
 			else {
 				res.json({ token });
