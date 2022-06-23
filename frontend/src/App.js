@@ -26,6 +26,7 @@ import { useEffect } from "react";
 import { getUserData } from "./store/actions/auth.action";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import UserList from "./components/dashbords/UserList";
+import Login from "./components/auth/Login";
 if (localStorage.token) {
 	setToken(localStorage.token);
 }
@@ -43,7 +44,7 @@ function App() {
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/register" component={Register2} />
-						{/* <Route exact path="/login" component={LoginPage} /> */}
+						<Route exact path="/login" component={Login} />
 						<PrivateRoute exact path="/dashboard" component={DashboardAdmin} />
 						<PrivateRoute exact path="/dashboard/utilisateurs" component={UserList} />
 					</Switch>
