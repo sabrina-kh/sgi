@@ -8,7 +8,7 @@ const Client = require("../models/client.model");
 const Respvente = require("../models/respvente.model");
 const Respstock = require("../models/respstock.model");
 const Respreglement = require("../models/respreglement.model");
-const { BAD_REQUEST, UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND } = require("http-status");
+const { BAD_REQUEST, UNAUTHORIZED, INTERNAL_SERVER_ERROR, NOT_FOUND, CREATED, OK } = require("http-status");
 const { CLIENTS, CLIENT, RESP_VENTE, RESP_STOCK, RESP_REGLEMENT, ADMIN } = require("../utils/constants");
 const { findOne } = require("../models/user.model");
 
@@ -60,7 +60,7 @@ const registerUser = async (req, res) => {
     };
     jwt.sign(payload, "secret", { expiresIn: "2h" }, (error, token) => {
       if (error) throw error;
-      else res.json({ token });
+      else res.status(CREATED).json({ token });
     });
 
     // return user data
@@ -103,7 +103,7 @@ const loginUser = async (req, res) => {
     };
     jwt.sign(payload, "secret", { expiresIn: "2h" }, (error, token) => {
       if (error) throw error;
-      else res.json({ token });
+      else res.status(OK).json({ token });
     });
 
     // return user data

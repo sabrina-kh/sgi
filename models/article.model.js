@@ -39,7 +39,7 @@ const ArticleSchema = new Schema({
         //unique: true
         default: 0
     },
-    densité: {
+    densite: {
         type: Number,
         required: true,
         //unique: true
