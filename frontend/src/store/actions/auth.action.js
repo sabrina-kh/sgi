@@ -90,14 +90,15 @@ export const login =
 				type: LOGIN_SUCCESS,
 				payload: res.data,
 			});
-			//dispatch(getUserData())
+			dispatch(getUserData())
 			toast.success('Connecté avec succès!');
 		} catch (error) {
+			const errorMessage = error.response.data.errors[0].msg;
 			dispatch({
 				type: LOGIN_FAILED,
 				payload: error,
 			});
-			toast.error('Une erreur a été survenue!');
+			toast.error(errorMessage);
 		}
 	};
 

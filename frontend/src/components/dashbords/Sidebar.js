@@ -187,7 +187,7 @@ const Sidebar = ({
 						</Link>
 						<Link
 							to="#"
-							//onClick={dispatch(logout())}
+							onClick={() => dispatch(logout())}
 							className="my-4 menu"
 							style={{
 								color: 'black',

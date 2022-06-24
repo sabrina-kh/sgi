@@ -25,12 +25,12 @@ import setToken from './utils/setToken';
 import { useEffect } from "react";
 import { getUserData } from "./store/actions/auth.action";
 import PrivateRoute from "./components/routing/PrivateRoute";
-import UserList from "./components/dashbords/UserList";
+import UserList from "./components/dashbords/user_management/UserList";
 import Login from "./components/auth/Login";
-import DashboardClient from "./components/DashboardClient";
-import DashboardRespVente from "./components/DashboardRespVente";
-import DashboardRespStock from "./components/DashboardRespStock";
-import DashboardRespReglement from "./components/DashboardRespReglement";
+import DashboardClient from "./components/dashbords/DashboardClient";
+import DashboardRespVente from './components/dashbords/DashboardRespVente';
+import DashboardRespStock from './components/dashbords/DashboardRespStock';
+import DashboardRespReglement from "./components/dashbords/DashboardRespReglement";
 if (localStorage.token) {
 	setToken(localStorage.token);
 }

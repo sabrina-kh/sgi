@@ -4,10 +4,10 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import GraphAdmin from './GraphAdmin';
 import './Dashboards.css';
-import UserList from './UserList';
-import SidebarRespReglement from './SideBarRespReglement';
+import UserList from './user_management/UserList';
+import SidebarRespStock from './SideBarRespStock';
 
-const DashboardRespReglement = () => {
+const DashboardRespStock = () => {
 	const [showDrawer, setShowDrawer] = useState(false);
 
 	const toggleDrawer = () => {
@@ -69,7 +69,7 @@ const DashboardRespReglement = () => {
 					>
 						<i className="fa fa-solid fa-align-left toggler"></i>
 					</Link>
-					<SidebarRespReglement
+					<SidebarRespStock
 						width={25}
 						onHide={() => setShowDrawer(false)}
 						show={showDrawer}
@@ -108,4 +108,4 @@ const DashboardRespReglement = () => {
 	);
 };
 
-export default DashboardRespReglement;
+export default DashboardRespStock;

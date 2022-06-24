@@ -4,7 +4,7 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import GraphAdmin from './GraphAdmin';
 import './Dashboards.css';
-import UserList from './UserList';
+import UserList from './user_management/UserList';
 
 const DashboardAdmin = () => {
 	const [showDrawer, setShowDrawer] = useState(false);

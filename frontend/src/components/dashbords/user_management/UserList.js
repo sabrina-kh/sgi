@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Tab, Tabs, Sonnet, Card, Col, Row, Nav } from 'react-bootstrap';
 import ClientList from './ClientList'
-import DashboardAdmin from './DashbordAdmin';
+import DashboardAdmin from '../DashbordAdmin';
+import UserForm from './UserForm';
 
 const UserList = () => {
   const [key, setKey] = useState('home');
+	const [userFormContainer, setUserFormContainer] = useState(false)
   return (
 		<div className='px-5 py-5'>
-			<DashboardAdmin />
+			{/* <DashboardAdmin /> */}
 		<Card
 			style={{
 				backgroundColor: 'white',
@@ -48,6 +50,7 @@ const UserList = () => {
 										color: 'white',
 										borderRadius: '20px',
 									}}
+								onClick={() => setUserFormContainer(true)}
 								>
 									+ Ajouter
 								</Nav.Link>
@@ -68,8 +71,8 @@ const UserList = () => {
 							<Tab.Pane eventKey="fourth">
 								<p>paragraph 4</p>
 							</Tab.Pane>
-							<Tab.Pane eventKey="fourth">
-								<p>paragraph 5</p>
+							<Tab.Pane eventKey="fifth">
+								<div>{userFormContainer && <UserForm />}</div>
 							</Tab.Pane>
 						</Tab.Content>
 					</Col>
