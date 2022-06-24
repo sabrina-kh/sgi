@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import { Tab, Tabs, Sonnet, Card, Col, Row, Nav } from 'react-bootstrap';
 import ClientList from './ClientList'
+import DashboardAdmin from './DashbordAdmin';
 
 const UserList = () => {
   const [key, setKey] = useState('home');
   return (
+		<div className='px-5 py-5'>
+			<DashboardAdmin />
 		<Card
 			style={{
 				backgroundColor: 'white',
 				margin: '5% 0 0',
 				padding: '5% 5% 0',
 				//height: '100%',
+				zIndex: 10
 			}}
 		>
 			<Tab.Container id="left-tabs-example" defaultActiveKey="first">
@@ -72,6 +76,7 @@ const UserList = () => {
 				</Row>
 			</Tab.Container>
 		</Card>
+		</div>
 	);
 }
 

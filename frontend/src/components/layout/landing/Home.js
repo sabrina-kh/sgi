@@ -5,8 +5,10 @@ import Login from "../../auth/Login";
 
 import "./landing.css";
 import Navigationbar from "../../nav/Navigationbar";
+import { useHistory } from "react-router-dom";
 
 const Home = () => {
+  const history = useHistory()
   return (
     <Container
       style={{
@@ -34,7 +36,7 @@ const Home = () => {
             Bienvenue Dans la Platforme De <br /> Régie Nationale Des Alcools
           </h1>
 
-          <Button className="cnxbtn">Se connecter</Button>
+          <Button className="cnxbtn" onClick={() => history.push('/login')}>Se connecter</Button>
         </Col>
       </Container>
     </Container>
