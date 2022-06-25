@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import GraphAdmin from './GraphAdmin';
 import './Dashboards.css';
 import UserList from './user_management/UserList';
-import SideBarClient from './SideBarClient';
+import SidebarRespStock from './SideBarRespStock';
 
-const DashboardClient = () => {
+const DashboardRespStock = () => {
 	const [showDrawer, setShowDrawer] = useState(false);
 
 	const toggleDrawer = () => {
@@ -69,7 +69,7 @@ const DashboardClient = () => {
 					>
 						<i className="fa fa-solid fa-align-left toggler"></i>
 					</Link>
-					<SideBarClient
+					<SidebarRespStock
 						width={25}
 						onHide={() => setShowDrawer(false)}
 						show={showDrawer}
@@ -108,4 +108,4 @@ const DashboardClient = () => {
 	);
 };
 
-export default DashboardClient;
+export default DashboardRespStock;

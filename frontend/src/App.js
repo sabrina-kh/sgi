@@ -25,16 +25,20 @@ import setToken from './utils/setToken';
 import { useEffect } from "react";
 import { getUserData } from "./store/actions/auth.action";
 import PrivateRoute from "./components/routing/PrivateRoute";
-import UserList from "./components/dashbords/UserList";
+import UserList from "./components/dashbords/user_management/UserList";
 import Login from "./components/auth/Login";
+import DashboardClient from "./components/dashbords/DashboardClient";
+import DashboardRespVente from './components/dashbords/DashboardRespVente';
+import DashboardRespStock from './components/dashbords/DashboardRespStock';
+import DashboardRespReglement from "./components/dashbords/DashboardRespReglement";
 if (localStorage.token) {
 	setToken(localStorage.token);
 }
 
 function App() {
-   /* useEffect(() => {
+    useEffect(() => {
 			store.dispatch(getUserData());
-		}, []); */
+		}, []); 
 
   return (
 		<Provider store={store}>
@@ -46,6 +50,11 @@ function App() {
 						<Route exact path="/register" component={Register2} />
 						<Route exact path="/login" component={Login} />
 						<PrivateRoute exact path="/dashboard" component={DashboardAdmin} />
+                        <PrivateRoute exact path="/dashboard/client" component={DashboardClient} />
+						<PrivateRoute exact path="/dashboard/respvente" component={DashboardRespVente} />
+						<PrivateRoute exact path="/dashboard/respstock" component={DashboardRespStock} />
+						<PrivateRoute exact path="/dashboard/respreglement" component={DashboardRespReglement} />
+
 						<PrivateRoute exact path="/dashboard/utilisateurs" component={UserList} />
 					</Switch>
 				</div>

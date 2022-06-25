@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { logout } from '../../store/actions/auth.action';
 
-const Sidebar = ({
+const SidebarRespReglement = ({
 	show,
 	onHide,
 	width,
@@ -187,7 +187,7 @@ const Sidebar = ({
 						</Link>
 						<Link
 							to="#"
-							onClick={() => dispatch(logout())}
+							//onClick={dispatch(logout())}
 							className="my-4 menu"
 							style={{
 								color: 'black',
@@ -204,4 +204,4 @@ const Sidebar = ({
 	);
 };
 
-export default Sidebar;
+export default SidebarRespReglement;
