@@ -104,4 +104,4 @@ const updateArticle = async (req, res) => {
   }
 };
 
-module.exports = { addArticle, getArticleList, getArticleById, deleteArticle }
+module.exports = { addArticle, getArticleList, getArticleById, deleteArticle, updateArticle }

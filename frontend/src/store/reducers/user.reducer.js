@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
   ADD_USER_SUCCESS,
   ADD_USER_FAILED,
@@ -144,7 +145,7 @@ export default function (state = initialState, action) {
       case UPDATE_USER_SUCCESS:
         return{
           ...state,
-          userList: state.userList.map(el => (el._id === payload._id ? payload : el))
+          userList: state.userList.map(el => (el._id === action.payload._id ? action.payload : el))
         }
     default:
       return state;

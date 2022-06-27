@@ -1,24 +1,19 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap';
-import { Controller, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { addUser } from '../../../store/actions/user.action';
 
 const UserForm = () => {
   const dispatch = useDispatch();
 
-	const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
 
 	const history = useHistory();
   const {
-		setError,
 		handleSubmit,
 		register,
-		control,
-		reset,
 		formState: { errors },
-		getValues,
 	} = useForm();
 
   const onSubmit = (data) => {
@@ -111,7 +106,7 @@ const UserForm = () => {
 							/>
 							<div className="invalid-feedback">{errors.password?.message}</div>
 						</div>
-						<div className="form-group" style={{ marginTop: '9%' }}>
+						<div className="form-group" style={{ marginTop: '6.5%' }}>
 							<label>
 								<i className="fa mx-1 fa-solid fa-user-check"></i>Type
 								d'Utilisateur
@@ -119,7 +114,7 @@ const UserForm = () => {
 							<select
 								name="userType"
 								type="select"
-								{...register('password', { required: true })}
+								{...register('userType', { required: true })}
 								className={`form-control ${
 									errors.userType ? 'is-invalid' : ''
 								}`}

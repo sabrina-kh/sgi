@@ -14,7 +14,7 @@ app.use('/clients', require("./routes/client.route"))
 app.use('/respvente', require("./routes/respVente.route"))
 app.use('/respstock', require("./routes/respStock.route"))
 app.use('/respreglement', require("./routes/respReglement.route"))
-app.use('/products', require("./routes/article.route"))
+app.use('/articles', require("./routes/article.route"))
 app.use('/commandes', require("./routes/commande.route"))
 
 

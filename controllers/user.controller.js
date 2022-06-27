@@ -165,24 +165,16 @@ const addUser = async (req, res) => {
 			'email',
 		]);
 		if (currentUser.userType !== 'ADMIN') {
-			return res.status(UNAUTHORIZED).json({
-				error:
-					"Action inerdite! Uniquement l/'administrateur posséde ce droit ",
-			});
+			return res.status(UNAUTHORIZED).json({ errors: [{ msg: "Action inerdite! Uniquement l/'administrateur posséde ce droit " }] });
 		}
 
 		if (userType == ADMIN) {
-			return res.status(UNAUTHORIZED).json({
-				error: 'Action interdite! Un seul administrateur est permis ',
-			});
+			return res.status(UNAUTHORIZED).json({ errors: [{ msg: "Action interdite! Un seul administrateur est permis " }] });
 		}
 
 		let user = await User.findOne({ email })
 		if (user) {
-			return res.status(BAD_REQUEST).json({
-				error:
-					"Utilisateur existant!",
-			});
+			return res.status(BAD_REQUEST).json({ errors: [{ msg: "Utilisateur Existant!" }] })
 		}
 
 		// create new user

@@ -63,7 +63,7 @@ const deleteRespStock = async (req, res) => {
 				],
 			});
 		}
-		let respStock = await RespStock.findById(req.params.id);
+		let respStock = await RespStock.findById(req.params.id).populate('user', '_id');
 		if (!respStock) {
 			return res.status(NOT_FOUND).json({
 				errors: [
@@ -74,7 +74,10 @@ const deleteRespStock = async (req, res) => {
 			});
 		}
 
+		let associatedUser = await User.findOne({ _id: respStock.user?._id })
+
 		respStock = await RespStock.findByIdAndRemove(req.params.id);
+		associatedUser = await User.findOneAndRemove({ _id: respStock.user?._id })
 		res.status(OK).json({ message: 'Responsable supprimé ' });
 	} catch (error) {
 		console.error(error.message);

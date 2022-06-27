@@ -58,18 +58,19 @@ export const addUser =
 		});
 
 		try {
-			const res = await axios.post('/user/add', body, config);
+			const res = await axios.post('/users/add', body, config);
 			dispatch({
 				type: ADD_USER_SUCCESS,
 				payload: res.data,
 			});
 			toast.success('Utilisateur ajouté avec succées');
 		} catch (error) {
+			const errorMessage = error.response.data.errors[0].msg;
 			dispatch({
 				type: ADD_USER_FAILED,
 				payload: error,
 			});
-			toast.error('Une erreur a été survenue');
+			toast.error(errorMessage);
 		}
 	};
 
@@ -165,11 +166,12 @@ export const getUserData = (userId) => async (dispatch) => {
 
 export const getClientData = (clientId) => async (dispatch) => {
 	try {
-		const res = await axios.get(`/client/${clientId}`);
+		const res = await axios.get(`/clients/${clientId}`);
 		dispatch({
 			type: GET_CLIENT_SUCCESS,
 			payload: res.data,
 		});
+		console.log(clientId)
 	} catch (error) {
 		dispatch({
 			type: GET_CLIENT_FAILED,
@@ -230,6 +232,23 @@ export const deleteUser = (userId) => async (dispatch) => {
 			type: DELETE_USER_SUCCESS,
 			payload: userId,
 		});
+		toast.success('Utilisateur supprimé avec succés');
+	} catch (error) {
+		dispatch({
+			type: DELETE_USER_FAILED,
+			payload: error,
+		});
+		toast.error('Une erreur a été survenue');
+	}
+};
+
+export const deleteClient = (clientId) => async (dispatch) => {
+	try {
+		const res = await axios.delete(`/clients/${clientId}`);
+		dispatch({
+			type: DELETE_USER_SUCCESS,
+			payload: clientId,
+		})
 		toast.success('Utilisateur supprimé avec succés');
 	} catch (error) {
 		dispatch({

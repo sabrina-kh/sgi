@@ -31,6 +31,7 @@ import DashboardClient from "./components/dashbords/DashboardClient";
 import DashboardRespVente from './components/dashbords/DashboardRespVente';
 import DashboardRespStock from './components/dashbords/DashboardRespStock';
 import DashboardRespReglement from "./components/dashbords/DashboardRespReglement";
+import ArticleList from "./components/dashbords/article_management/ArticleList";
 if (localStorage.token) {
 	setToken(localStorage.token);
 }
@@ -56,6 +57,7 @@ function App() {
 						<PrivateRoute exact path="/dashboard/respreglement" component={DashboardRespReglement} />
 
 						<PrivateRoute exact path="/dashboard/utilisateurs" component={UserList} />
+						<PrivateRoute exact path="/dashboard/articles" component={ArticleList} />
 					</Switch>
 				</div>
 				<ToastContainer />

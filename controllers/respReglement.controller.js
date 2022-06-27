@@ -66,7 +66,7 @@ const deleteRespReglement = async (req, res) => {
 				],
 			});
 		}
-		let respReglement = await RespReglement.findById(req.params.id);
+		let respReglement = await RespReglement.findById(req.params.id).populate('user', '_id');
 		if (!respReglement) {
 			return res.status(NOT_FOUND).json({
 				errors: [
@@ -77,7 +77,10 @@ const deleteRespReglement = async (req, res) => {
 			});
 		}
 
+		let associatedUser = await User.findOne({ _id: respReglement.user?._id })
+
 		respReglement = await RespReglement.findByIdAndRemove(req.params.id);
+		associatedUser = await User.findOneAndRemove({ _id: respReglement.user?._id })
 		res.status(OK).json({ message: 'Responsable supprimé ' });
 	} catch (error) {
 		console.error(error.message);

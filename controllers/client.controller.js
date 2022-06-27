@@ -73,7 +73,7 @@ const deleteClient = async (req, res) => {
 				],
 			});
 		}
-		let client = await Client.findById(req.params.clientId);
+		let client = await Client.findById(req.params.clientId).populate('user', '_id');
 		if (!client) {
 			return res.status(NOT_FOUND).json({
 				errors: [
@@ -84,7 +84,10 @@ const deleteClient = async (req, res) => {
 			});
 		}
 
+		let associatedUser = await User.findOne({ _id: client.user?._id })
+
 		client = await Client.findByIdAndRemove(req.params.clientId);
+		associatedUser = await User.findOneAndRemove({ _id: client.user?._id })
 		res.status(OK).json({ message: 'client supprimé ' });
 	} catch (error) {
 		console.error(error.message);

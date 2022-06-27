@@ -10,40 +10,40 @@ import {
 import { Button, Col, Modal, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  deleteClient,
+  deleteRespReglement,
   deleteUser,
-  getClientData,
-  getClientList
+  getRespReglementData,
+  getRespReglementList,
 } from '../../../store/actions/user.action'
 import moment from 'moment'
 import UserForm from './UserForm'
 import UserFormUpdate from './UserFormUpdate'
 
-export default function ClientList () {
-  const clientId = useId()
+export default function RespReglementList () {
+  const respReglementId = useId()
 
   const dispatch = useDispatch()
-  const clientList = useSelector(({ User }) => User.clientList)
-  const clientData = useSelector(({ User }) => User.clientData)
+  const respReglementList = useSelector(({ User }) => User.respReglementList)
+  const respReglementData = useSelector(({ User }) => User.respReglementData)
 
   useEffect(() => {
-    dispatch(getClientList())
+    dispatch(getRespReglementList())
   }, [dispatch])
 
-  const [clientModal, setClientModal] = useState(false)
-  const retrieveClientData = el => {
-    dispatch(getClientData(el))
-    setClientModal(true)
+  const [respReglementModal, setRespReglementModal] = useState(false)
+  const retrieveRespReglementData = el => {
+    dispatch(getRespReglementData(el))
+    setRespReglementModal(true)
   }
-  const handleDeleteClient = el => {
-    setClientModal(false)
-    dispatch(deleteClient(el))
+  const handleDeleteRespReglement = el => {
+    setRespReglementModal(false)
+    dispatch(deleteRespReglement(el))
   }
 
   const [updateModal, setUpdateModal] = useState(false)
-	const handleUpdate = (clientId) => {
+	const handleUpdate = (respReglementId) => {
 		setUpdateModal(true)
-		dispatch(getClientData(clientId))
+		dispatch(getRespReglementData(respReglementId))
 	}
 
   return (
@@ -62,37 +62,37 @@ export default function ClientList () {
           </tr>
         </MDBTableHead>
         <MDBTableBody>
-          {clientList && clientList?.length > 0 ? (
-            clientList?.map(el => (
+          {respReglementList && respReglementList?.length > 0 ? (
+            respReglementList?.map(el => (
               <Fragment>
                 <tr>
                   <th scope='row'>
-                    {clientId
+                    {respReglementId
                       ?.toString()
                       .replace(':r', '')
                       .replace(':', '')}
                   </th>
                   <td
-                    onClick={() => retrieveClientData(el._id)}
+                    onClick={() => retrieveRespReglementData(el._id)}
                     style={{ cursor: 'pointer' }}
                   >
                     {el?.lastName}
                   </td>
                   <td
-                    onClick={() => retrieveClientData(el._id)}
+                    onClick={() => retrieveRespReglementData(el._id)}
                     style={{ cursor: 'pointer' }}
                     colSpan={2}
                   >
                     {el?.firstName}
                   </td>
                   <td
-                    onClick={() => retrieveClientData(el._id)}
+                    onClick={() => retrieveRespReglementData(el._id)}
                     style={{ cursor: 'pointer' }}
                   >
                     {el?.company}
                   </td>
                   <td
-                    onClick={() => retrieveClientData(el._id)}
+                    onClick={() => retrieveRespReglementData(el._id)}
                     style={{ cursor: 'pointer' }}
                   >
                     {moment(el?.createdAt).format('DD/MM/YYYY')}
@@ -102,7 +102,7 @@ export default function ClientList () {
                       variant='outline-danger'
                       className='mx-2'
                       size='sm'
-                      onClick={() => handleDeleteClient(el._id)}
+                      onClick={() => handleDeleteRespReglement(el._id)}
                     >
                       <i className='fa fa-solid fa-trash'></i>
                     </Button>
@@ -114,7 +114,7 @@ export default function ClientList () {
               </Fragment>
             ))
           ) : (
-            <span>Aucun client n'est trouvé</span>
+            <span>Aucun respReglement n'est trouvé</span>
           )}
         </MDBTableBody>
       </MDBTable>
@@ -141,11 +141,11 @@ export default function ClientList () {
       </nav>
 
       {/* Modal des données */}
-      <Modal show={clientModal} size='lg'>
+      <Modal show={respReglementModal} size='lg'>
         <Modal.Header closeButton>
-          <Modal.Title>{`Données spécifiques du client ${
-            clientData ? clientData?.firstName : null
-          } ${clientData ? clientData?.lastName : null}`}</Modal.Title>
+          <Modal.Title>{`Données spécifiques du respReglement ${
+            respReglementData ? respReglementData?.firstName : null
+          } ${respReglementData ? respReglementData?.lastName : null}`}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -153,28 +153,28 @@ export default function ClientList () {
             <Row className='my-3'>
               <Col>
                 <h6>Nom de Famille:</h6>
-                <small>{clientData && clientData?.lastName}</small>
+                <small>{respReglementData && respReglementData?.lastName}</small>
               </Col>
               <Col>
                 <h6>Prénom:</h6>
-                <small>{clientData && clientData?.firstName}</small>
+                <small>{respReglementData && respReglementData?.firstName}</small>
               </Col>
             </Row>
             <Row className='my-3'>
               <Col>
                 <h6>Affiliation:</h6>
-                <small>{clientData && clientData?.company}</small>
+                <small>{respReglementData && respReglementData?.company}</small>
               </Col>
               <Col>
                 <h6>Email de Connexion:</h6>
-                <small>{clientData && clientData?.email}</small>
+                <small>{respReglementData && respReglementData?.email}</small>
               </Col>
             </Row>
           </div>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant='danger' onClick={() => setClientModal(false)}>
+          <Button variant='danger' onClick={() => setRespReglementModal(false)}>
             Fermer
           </Button>
         </Modal.Footer>
@@ -183,7 +183,7 @@ export default function ClientList () {
       {/* Modal de Modification */}
       <Modal show={updateModal} size='lg'>
         <Modal.Header closeButton>
-          <Modal.Title>Modifier les données du client</Modal.Title>
+          <Modal.Title>Modifier les données du respReglement</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>

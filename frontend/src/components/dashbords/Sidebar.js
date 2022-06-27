@@ -122,7 +122,7 @@ const Sidebar = ({
 									<i className="mx-3 fa fa-solid fa-truck"></i>Livraison
 								</Link>
 								<Link
-									to="#"
+									to="/dashboard/articles"
 									onClick={onClickArticles}
 									className="my-2 mx-5 menu"
 									style={{

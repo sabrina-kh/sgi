@@ -63,7 +63,7 @@ const deleteRespVente = async (req, res) => {
 				],
 			});
 		}
-		let respVente = await RespVente.findById(req.params.id);
+		let respVente = await RespVente.findById(req.params.id).populate('user', '_id');
 		if (!respVente) {
 			return res.status(NOT_FOUND).json({
 				errors: [
@@ -74,7 +74,10 @@ const deleteRespVente = async (req, res) => {
 			});
 		}
 
+		let associatedUser = await User.findOne({ _id: respVente.user?._id })
+
 		respVente = await Client.findByIdAndRemove(req.params.id);
+		associatedUser = await User.findOneAndRemove({ _id: respVente.user?._id })
 		res.status(OK).json({ message: 'Responsable supprimé ' });
 	} catch (error) {
 		console.error(error.message);
