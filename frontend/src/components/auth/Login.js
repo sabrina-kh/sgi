@@ -3,12 +3,13 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { login, registerUser } from '../../store/actions/auth.action';
+import { getUserData, login, registerUser } from '../../store/actions/auth.action';
 
 const Login = () => {
 	const dispatch = useDispatch();
 
 	const isAuthenticated = useSelector(({ auth }) => auth.isAuthenticated);
+	const userData = useSelector(({ auth }) => auth.userData);
 
 	const history = useHistory();
 	const {
@@ -32,7 +33,21 @@ const Login = () => {
 
 	if (isAuthenticated) {
 		console.log('auth', isAuthenticated);
-		return <Redirect to="/dashboard" />;
+		dispatch(getUserData())
+		console.log('user type:', userData)
+		switch (userData?.userType) {
+			case 'CLIENT':
+				return <Redirect to="/dashboard/client" />;
+			case 'RESP_VENTE':
+				return <Redirect to="/dashboard/respvente" />;
+			case 'RESP_STOCK':
+				return <Redirect to="/dashboard/respstock" />;
+			case 'RESP_REGLEMENT':
+				return <Redirect to="/dashboard/respreglement" />;
+			default:
+				return <Redirect to="/dashboard" />;
+		}
+		//return <Redirect to="/dashboard" />;
 	}
 	return (
 		<div className="vh-100 px-5 py-5 container-fluid">

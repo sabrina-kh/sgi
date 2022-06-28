@@ -77,80 +77,6 @@ const SidebarRespVente = ({
 						</Link>
 						<Link
 							to="#"
-							onClick={() => onToggleDropdown()}
-							className="my-4 menu"
-							style={{
-								color: 'black',
-								fontStyle: 'none',
-								textDecoration: 'none',
-								display: 'flex',
-							}}
-						>
-							<i className="mx-3 fa fa-solid fa-gear"></i>Paramétres
-							<i
-								className={` mx-5 fa fa-solid fa-angle-${
-									!dropdown ? 'down' : 'up'
-								}`}
-							></i>
-						</Link>
-						{dropdown && (
-							<Fragment>
-								<Link
-									to="/dashboard/utilisateurs"
-									onClick={onClickUsers}
-									className="my-2 mx-5 menu"
-									style={{
-										color: 'black',
-										fontStyle: 'none',
-										textDecoration: 'none',
-										fontSize: '0.8rem',
-									}}
-								>
-									<i className="mx-3 fa fa-solid fa-user"></i>Utilisateurs
-								</Link>
-								<Link
-									to="#"
-									onClick={onClickDelivery}
-									className="my-2 mx-5 menu"
-									style={{
-										color: 'black',
-										fontStyle: 'none',
-										textDecoration: 'none',
-										fontSize: '0.8rem',
-									}}
-								>
-									<i className="mx-3 fa fa-solid fa-truck"></i>Livraison
-								</Link>
-								<Link
-									to="#"
-									onClick={onClickArticles}
-									className="my-2 mx-5 menu"
-									style={{
-										color: 'black',
-										fontStyle: 'none',
-										textDecoration: 'none',
-										fontSize: '0.8rem',
-									}}
-								>
-									<i className="mx-3 fa fa-solid fa-flask-vial"></i>Articles
-								</Link>
-								<Link
-									to="#"
-									onClick={onClickStocks}
-									className="my-2 mx-5 menu"
-									style={{
-										color: 'black',
-										fontStyle: 'none',
-										textDecoration: 'none',
-										fontSize: '0.8rem',
-									}}
-								>
-									<i className="mx-3 fa fa-solid fa-warehouse"></i>Stocks
-								</Link>
-							</Fragment>
-						)}
-						<Link
-							to="#"
 							onClick={onClickAccount}
 							className="my-4 menu"
 							style={{
@@ -171,7 +97,7 @@ const SidebarRespVente = ({
 								textDecoration: 'none',
 							}}
 						>
-							<i className="mx-3 fa fa-solid fa-cart-plus"></i> Vente
+							<i className="mx-3 fa fa-solid fa-cart-plus"></i> Commandes
 						</Link>
 						<Link
 							to="#"
@@ -183,7 +109,7 @@ const SidebarRespVente = ({
 								textDecoration: 'none',
 							}}
 						>
-							<i className="mx-3 fa fa-solid fa-bus-simple"></i> Livraison
+							<i className="mx-3 fa fa-solid fa-bus-simple"></i> Aquis a Cautions
 						</Link>
 						<Link
 							to="#"

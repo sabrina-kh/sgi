@@ -2,6 +2,7 @@ import "./App.css";
 import {
   BrowserRouter,
   BrowserRouter as Router,
+  Redirect,
   Route,
   Switch,
 } from "react-router-dom";
@@ -15,7 +16,7 @@ import Register from "./components/auth/Register";
 //import LoginPage from "./components/layout/LoginPage";
 import DashboardContainer from "./components/layout/DashboardContainer";
 import DashboardAdmin from "./components/dashbords/DashbordAdmin";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import {store} from "./store"
 import Register2 from "./components/auth/Register2";
 import { ToastContainer } from "react-toastify";
@@ -32,6 +33,7 @@ import DashboardRespVente from './components/dashbords/DashboardRespVente';
 import DashboardRespStock from './components/dashbords/DashboardRespStock';
 import DashboardRespReglement from "./components/dashbords/DashboardRespReglement";
 import ArticleList from "./components/dashbords/article_management/ArticleList";
+import CommandeList from "./components/dashbords/commande_management/CommandeList";
 if (localStorage.token) {
 	setToken(localStorage.token);
 }
@@ -51,13 +53,42 @@ function App() {
 						<Route exact path="/register" component={Register2} />
 						<Route exact path="/login" component={Login} />
 						<PrivateRoute exact path="/dashboard" component={DashboardAdmin} />
-                        <PrivateRoute exact path="/dashboard/client" component={DashboardClient} />
-						<PrivateRoute exact path="/dashboard/respvente" component={DashboardRespVente} />
-						<PrivateRoute exact path="/dashboard/respstock" component={DashboardRespStock} />
-						<PrivateRoute exact path="/dashboard/respreglement" component={DashboardRespReglement} />
+						<PrivateRoute
+							exact
+							path="/dashboard/client"
+							component={DashboardClient}
+						/>
+						<PrivateRoute
+							exact
+							path="/dashboard/respvente"
+							component={DashboardRespVente}
+						/>
+						<PrivateRoute
+							exact
+							path="/dashboard/respstock"
+							component={DashboardRespStock}
+						/>
+						<PrivateRoute
+							exact
+							path="/dashboard/respreglement"
+							component={DashboardRespReglement}
+						/>
 
-						<PrivateRoute exact path="/dashboard/utilisateurs" component={UserList} />
-						<PrivateRoute exact path="/dashboard/articles" component={ArticleList} />
+						<PrivateRoute
+							exact
+							path="/dashboard/utilisateurs"
+							component={UserList}
+						/>
+						<PrivateRoute
+							exact
+							path="/dashboard/articles"
+							component={ArticleList}
+						/>
+						<PrivateRoute
+							exact
+							path="/dashboard/commandes"
+							component={CommandeList}
+						/>
 					</Switch>
 				</div>
 				<ToastContainer />

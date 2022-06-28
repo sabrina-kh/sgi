@@ -23,6 +23,7 @@ const SidebarClient = ({
 	onClickUsers,
 	onClickStocks,
 	onClickDelivery,
+	onClickCommandes,
   dropdown,
 	...props
 }) => {
@@ -77,80 +78,6 @@ const SidebarClient = ({
 						</Link>
 						<Link
 							to="#"
-							onClick={() => onToggleDropdown()}
-							className="my-4 menu"
-							style={{
-								color: 'black',
-								fontStyle: 'none',
-								textDecoration: 'none',
-								display: 'flex',
-							}}
-						>
-							<i className="mx-3 fa fa-solid fa-gear"></i>Paramétres
-							<i
-								className={` mx-5 fa fa-solid fa-angle-${
-									!dropdown ? 'down' : 'up'
-								}`}
-							></i>
-						</Link>
-						{dropdown && (
-							<Fragment>
-								<Link
-									to="/dashboard/utilisateurs"
-									onClick={onClickUsers}
-									className="my-2 mx-5 menu"
-									style={{
-										color: 'black',
-										fontStyle: 'none',
-										textDecoration: 'none',
-										fontSize: '0.8rem',
-									}}
-								>
-									<i className="mx-3 fa fa-solid fa-user"></i>Utilisateurs
-								</Link>
-								<Link
-									to="#"
-									onClick={onClickDelivery}
-									className="my-2 mx-5 menu"
-									style={{
-										color: 'black',
-										fontStyle: 'none',
-										textDecoration: 'none',
-										fontSize: '0.8rem',
-									}}
-								>
-									<i className="mx-3 fa fa-solid fa-truck"></i>Livraison
-								</Link>
-								<Link
-									to="#"
-									onClick={onClickArticles}
-									className="my-2 mx-5 menu"
-									style={{
-										color: 'black',
-										fontStyle: 'none',
-										textDecoration: 'none',
-										fontSize: '0.8rem',
-									}}
-								>
-									<i className="mx-3 fa fa-solid fa-flask-vial"></i>Articles
-								</Link>
-								<Link
-									to="#"
-									onClick={onClickStocks}
-									className="my-2 mx-5 menu"
-									style={{
-										color: 'black',
-										fontStyle: 'none',
-										textDecoration: 'none',
-										fontSize: '0.8rem',
-									}}
-								>
-									<i className="mx-3 fa fa-solid fa-warehouse"></i>Stocks
-								</Link>
-							</Fragment>
-						)}
-						<Link
-							to="#"
 							onClick={onClickAccount}
 							className="my-4 menu"
 							style={{
@@ -162,8 +89,8 @@ const SidebarClient = ({
 							<i className="mx-3 fa fa-solid fa-circle-user"></i>Compte
 						</Link>
 						<Link
-							to="#"
-							onClick={onClickSales}
+							to="/dashboard/commandes"
+							onClick={onClickCommandes}
 							className="my-4 menu"
 							style={{
 								color: 'black',
@@ -171,23 +98,11 @@ const SidebarClient = ({
 								textDecoration: 'none',
 							}}
 						>
-							<i className="mx-3 fa fa-solid fa-cart-plus"></i> Vente
+							<i className="mx-3 fa fa-solid fa-cart-plus"></i> Commandes
 						</Link>
 						<Link
 							to="#"
-							onClick={onClickDelivery}
-							className="my-4 menu"
-							style={{
-								color: 'black',
-								fontStyle: 'none',
-								textDecoration: 'none',
-							}}
-						>
-							<i className="mx-3 fa fa-solid fa-bus-simple"></i> Livraison
-						</Link>
-						<Link
-							to="#"
-							//onClick={dispatch(logout())}
+							onClick={() => dispatch(logout())}
 							className="my-4 menu"
 							style={{
 								color: 'black',

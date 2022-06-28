@@ -6,6 +6,7 @@ import GraphAdmin from './GraphAdmin';
 import './Dashboards.css';
 import UserList from './user_management/UserList';
 import SideBarClient from './SideBarClient';
+import CommandeList from './commande_management/CommandeList';
 
 const DashboardClient = () => {
 	const [showDrawer, setShowDrawer] = useState(false);
@@ -15,47 +16,20 @@ const DashboardClient = () => {
 	};
 
 	const [showHome, setShowHome] = useState(true);
-	const [showSetting, setShowSetting] = useState(false);
-	const [showSettingDropdown, setShowSettingDropdown] = useState(false);
 	const [showAccount, setShowAccount] = useState(false);
-	const [showSales, setShowSales] = useState(false);
-	const [showDelivery, setShowDelivery] = useState(false);
-	const [showUsers, setShowUsers] = useState(false);
-	const [showStocks, setShowStocks] = useState(false);
-	//const [showLivraison, setShowLivraison] = useState(false);
-	const [showArticles, setShowArticles] = useState(false);
+	const [showCommandes, setShowCommandes] = useState(false);
 
 	function toggleHome() {
 		setShowHome(showHome);
     toggleDrawer()
 	}
-	function toggleSetting() {
-		setShowSetting(!showSetting);
-	}
 	function toggleAccount() {
 		setShowAccount(!showAccount);
 	}
-	function toggleSales() {
-		setShowSales(!showSales);
+	function toggleCommandes() {
+		setShowCommandes(!showCommandes);
 	}
-	function toggleDelivery() {
-		setShowDelivery(!showDelivery);
-	}
-	function toggleDropdown() {
-		setShowSettingDropdown(!showSettingDropdown);
-	}
-	function toggleUsers() {
-		setShowUsers(!showUsers);
-    setShowHome(!showHome)
-    console.log({showUsers, showHome})
-    toggleDrawer()
-	}
-	function toggleArticles() {
-		setShowArticles(!showArticles);
-	}
-	function toggleStocks() {
-		setShowStocks(!showStocks);
-	}
+	
 
 	return (
 		<Container className="dashboard-admin-container">
@@ -74,14 +48,8 @@ const DashboardClient = () => {
 						onHide={() => setShowDrawer(false)}
 						show={showDrawer}
 						onClickHome={toggleHome}
-						onToggleDropdown={toggleDropdown}
 						onClickAccount={toggleAccount}
-						onClickSales={toggleSales}
-						onClickDelivery={toggleDelivery}
-						onClickUsers={toggleUsers}
-						onClickArticles={toggleArticles}
-						onClickStocks={toggleStocks}
-						dropdown={showSettingDropdown}
+						onClickCommandes={toggleCommandes}
 					/>
 				</Col>
 			</Row>
@@ -102,7 +70,7 @@ const DashboardClient = () => {
 				</Row>
 			)}
       {
-        showUsers && (<div style={{ height: '100%' }}><UserList /></div>)
+        showCommandes && (<div style={{ height: '100%' }}><CommandeList /></div>)
       }
 		</Container>
 	);

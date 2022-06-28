@@ -1,4 +1,5 @@
 const RespVente = require('../models/respVente.model');
+const User = require('../models/user.model')
 const { RESP_VENTE, ADMIN } = require('../utils/constants');
 
 const getRespVenteList = async (req, res) => {
