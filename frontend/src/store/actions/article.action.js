@@ -15,14 +15,14 @@ import {
 export const addArticle =
   ({
     code,
-    désignation,
+    designation,
     degreEnfencement,
     prix,
-    température,
+    temperature,
     tav,
-    densité,
+    densite,
     coefficient,
-    quantité,
+    quantity,
   }) =>
   async (dispatch) => {
     const config = {
@@ -33,14 +33,14 @@ export const addArticle =
 
     const body = JSON.stringify({
       code,
-      désignation,
+      designation,
       degreEnfencement,
       prix,
-      température,
+      temperature,
       tav,
-      densité,
+      densite,
       coefficient,
-      quantité,
+      quantity,
     });
 
     try {
@@ -49,6 +49,7 @@ export const addArticle =
         type: ADD_ARTICLE_SUCCESS,
         payload: res.data,
       });
+      console.log('res', res.data)
     } catch (error) {
       dispatch({
         type: ADD_ARTICLE_FAILED,

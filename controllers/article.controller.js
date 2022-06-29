@@ -79,7 +79,7 @@ const getArticleById = async (req, res) => {
 const deleteArticle = async (req, res) => {
   try {
     const currentUser = await User.findById(req.user.id);
-    if (currentUser.userType !== RESP_STOCK) {
+    if (currentUser.userType !== ADMIN) {
       return res.status(UNAUTHORIZED).json({ message: "Non Autorisé" });
     }
     let article = await Article.findById(req.params.articleId);
