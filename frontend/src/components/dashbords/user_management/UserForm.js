@@ -20,6 +20,7 @@ const UserForm = () => {
 		try {
 			console.log('data', data);
 			dispatch(addUser(data));
+			history.push('/dashboard/utilisateurs')
 		} catch (error) {
 			console.log('error', error);
 		}
@@ -137,7 +138,7 @@ const UserForm = () => {
 								<div className="my-4">
 									<button
 										type="button"
-										onClick={() => history.goBack}
+										onClick={() => history.goBack()}
 										className="btn btn-primary btn-sm float-right mx-1"
 									>
 										<i className="fa mx-2 fa-solid fa-arrow-left"></i>Retour

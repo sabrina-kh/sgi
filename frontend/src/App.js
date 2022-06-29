@@ -34,6 +34,7 @@ import DashboardRespStock from './components/dashbords/DashboardRespStock';
 import DashboardRespReglement from "./components/dashbords/DashboardRespReglement";
 import ArticleList from "./components/dashbords/article_management/ArticleList";
 import CommandeList from "./components/dashbords/commande_management/CommandeList";
+import ClientList from "./components/dashbords/user_management/ClientList";
 if (localStorage.token) {
 	setToken(localStorage.token);
 }
@@ -78,6 +79,11 @@ function App() {
 							exact
 							path="/dashboard/utilisateurs"
 							component={UserList}
+						/>
+						<PrivateRoute
+							exact
+							path="/dashboard/utilisateurs/clients"
+							component={ClientList}
 						/>
 						<PrivateRoute
 							exact

@@ -1,5 +1,6 @@
 const { OK } = require('http-status');
 const RespVente = require('../models/respVente.model');
+const Client = require('../models/client.model');
 const User = require('../models/user.model')
 const { RESP_VENTE, ADMIN } = require('../utils/constants');
 
@@ -79,7 +80,7 @@ const deleteRespVente = async (req, res) => {
 		let associatedUser = await User.findOne({ _id: respVente.user?._id })
 
 		respVente = await Client.findByIdAndRemove(req.params.id);
-		associatedUser = await User.findOneAndRemove({ _id: respVente.user?._id })
+		associatedUser = await User.findOneAndRemove({ _id: respVente?.user?._id })
 		res.status(OK).json({ message: 'Responsable supprimé ' });
 	} catch (error) {
 		console.error(error.message);

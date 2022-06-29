@@ -28,7 +28,7 @@ export default function ClientList () {
 
   useEffect(() => {
     dispatch(getClientList())
-  }, [dispatch])
+  }, [dispatch, clientList])
 
   const [clientModal, setClientModal] = useState(false)
   const retrieveClientData = el => {
