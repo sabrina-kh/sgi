@@ -116,10 +116,12 @@ const validateCommande = async (req, res) => {
 const commandeFields = {}
 if (lieuDeLivraison) commandeFields.lieuDeLivraison = lieuDeLivraison
 if (volume) commandeFields.volume = volume;
+if (client) commandeFields.client = client;
 if (nbFut) commandeFields.nbFut = nbFut;
 if (modeLivraison) commandeFields.modeLivraison = modeLivraison;
 if (modePaiement) commandeFields.modePaiement = modePaiement;
 if (remise) commandeFields.remise = remise;
+if (articles) commandeFields.articles = articles;
 if (prixTOT) commandeFields.prixTOT = prixTOT;
 if (prixHT) commandeFields.prixHT = prixHT;
 if (isPassed) commandeFields.isPassed = isPassed;
@@ -143,20 +145,11 @@ if (isPassed) commandeFields.isPassed = isPassed;
 		let numCommande = await Commande.find().count();
 		numCommande++;
 
-		let newCommande = new Commande({
-			client: user?.userType === CLIENT ? req.user.id : client,
-			numCom: numCommande,
-			lieuDeLivraison,
-			volume,
-			nbFut,
-			articles,
-			modeLivraison,
-			modePaiement,
-		});
+		commandeFields.numCom = numCommande
 
-		const commande = await newCommande.save();
+		commande = await Commande.findOneAndUpdate({ _id: req.params.commandeId }, { $set: commandeFields }, { new: true } )
 
-		res.status(CREATED).json(commande);
+		res.status(OK).json(commande);
 	} catch (error) {
 		console.error(error.message);
 		res

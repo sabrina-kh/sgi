@@ -12,7 +12,15 @@ import {
   UPDATE_COMMANDE_SUCCESS,
 } from "./actionTypes";
 
-export const addCommande = () => async (dispatch) => {
+export const addCommande = ({
+  lieuDeLivraison,
+  numCom,
+  prixHT,
+  prixTOT,
+  nbFut,
+  volume,
+  remise,
+}) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { 
   ADD_COMMANDE_FAILED,
   ADD_COMMANDE_SUCCESS, 
@@ -65,6 +66,8 @@ export default function (state = initialState, action) {
             ...state,
             error: payload,
             };
+          default:
+            return state
         }
       }
     

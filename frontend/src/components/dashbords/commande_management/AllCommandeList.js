@@ -16,8 +16,8 @@ import {
 	getClientList,
 } from '../../../store/actions/user.action';
 import moment from 'moment';
-import UserForm from './UserForm';
-import UserFormUpdate from './UserFormUpdate';
+//import UserForm from './UserForm';
+//import UserFormUpdate from './UserFormUpdate';
 import {
 	deleteCommande,
 	getCommande,
