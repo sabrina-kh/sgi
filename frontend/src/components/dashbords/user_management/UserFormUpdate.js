@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  getClientData,
   updateUser
 } from '../../../store/actions/user.action'
 
-const UserFormUpdate = ({ userId, handleClose }) => {
+const UserFormUpdate = ({ onValidate, handleClose }) => {
   const dispatch = useDispatch()
 
   const clientData = useSelector(({ User }) => User.clientData)
   const respVenteData = useSelector(({ User }) => User.respVenteData)
   const respStockData = useSelector(({ User }) => User.respStockData)
   const respReglementData = useSelector(({ User }) => User.respReglementData)
+
+  useEffect(() => {
+getClientData()
+  }, [])
 
   const {
     handleSubmit,
@@ -22,7 +27,9 @@ const UserFormUpdate = ({ userId, handleClose }) => {
   const onSubmit = data => {
     try {
       console.log('data', data)
-      dispatch(updateUser(userId, data))
+      onValidate()
+      //dispatch(updateUser(userId, data))
+      console.log('clientData', clientData)
     } catch (error) {
       console.log('error', error)
     }

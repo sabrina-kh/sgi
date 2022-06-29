@@ -263,18 +263,20 @@ const addUser = async (req, res) => {
 
 // modifier user
 const updateUser = async (req, res) => {
-	const { firstName, lastName, email } = req.body;
+	const { firstName, lastName, email, company, password } = req.body;
 	const userFields = {};
 	if (firstName) userFields.firstName = firstName;
 	if (lastName) userFields.lastName = lastName;
 	if (email) userFields.email = email;
+	if (company) userFields.company = company;
+	if (password) userFields.password = password;
 
 	try {
 		let user = await User.findById(req.params.userId);
 		if (!user) {
 			return res.json({ error: 'Utilisateur non trouvé ' });
 		}
-		user = await User.findByIdAndUpdate(req.params.userId, userFields, {
+		user = await User.findByIdAndUpdate(req.params.userId, { $set: userFields}, {
 			new: true,
 		});
 		// await user.save()
@@ -317,6 +319,7 @@ const getUserList = async (req, res) => {
 		res.status(500).send('Nous avons pas pu se connecter au serveur !');
 	}
 }
+
 
 module.exports = {
 	registerUser,

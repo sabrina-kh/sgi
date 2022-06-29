@@ -1,3 +1,4 @@
+const { OK } = require('http-status');
 const RespVente = require('../models/respVente.model');
 const User = require('../models/user.model')
 const { RESP_VENTE, ADMIN } = require('../utils/constants');

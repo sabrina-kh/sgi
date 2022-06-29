@@ -187,7 +187,7 @@ export default function ClientList () {
         </Modal.Header>
 
         <Modal.Body>
-          <UserFormUpdate />
+          <UserFormUpdate userId={clientData?.user?.toString} />
         </Modal.Body>
 
         <Modal.Footer>

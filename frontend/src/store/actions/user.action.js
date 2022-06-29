@@ -37,6 +37,14 @@ import {
   GET_RESP_STOCK_FAILED,
   GET_RESP_REGLEMENT_FAILED,
   GET_RESP_REGLEMENT_SUCCESS,
+	DELETE_CLIENT_SUCCESS,
+	DELETE_CLIENT_FAILED,
+	DELETE_RESP_REGLEMENT_SUCCESS,
+	DELETE_RESP_REGLEMENT_FAILED,
+	DELETE_RESP_STOCK_SUCCESS,
+	DELETE_RESP_STOCK_FAILED,
+	DELETE_RESP_VENTE_SUCCESS,
+	DELETE_RESP_VENTE_FAILED,
 } from './actionTypes';
 
 export const addUser =
@@ -246,13 +254,13 @@ export const deleteClient = (clientId) => async (dispatch) => {
 	try {
 		const res = await axios.delete(`/clients/${clientId}`);
 		dispatch({
-			type: DELETE_USER_SUCCESS,
+			type: DELETE_CLIENT_SUCCESS,
 			payload: clientId,
 		})
 		toast.success('Utilisateur supprimé avec succés');
 	} catch (error) {
 		dispatch({
-			type: DELETE_USER_FAILED,
+			type: DELETE_CLIENT_FAILED,
 			payload: error,
 		});
 		toast.error('Une erreur a été survenue');
@@ -261,15 +269,15 @@ export const deleteClient = (clientId) => async (dispatch) => {
 
 export const deleteRespReglement = (clientId) => async (dispatch) => {
 	try {
-		const res = await axios.delete(`/clients/${clientId}`);
+		const res = await axios.delete(`/respreglement/${clientId}`);
 		dispatch({
-			type: DELETE_USER_SUCCESS,
+			type: DELETE_RESP_REGLEMENT_SUCCESS,
 			payload: clientId,
 		})
 		toast.success('Utilisateur supprimé avec succés');
 	} catch (error) {
 		dispatch({
-			type: DELETE_USER_FAILED,
+			type: DELETE_RESP_REGLEMENT_FAILED,
 			payload: error,
 		});
 		toast.error('Une erreur a été survenue');
@@ -278,15 +286,15 @@ export const deleteRespReglement = (clientId) => async (dispatch) => {
 
 export const deleteRespStock = (clientId) => async (dispatch) => {
 	try {
-		const res = await axios.delete(`/clients/${clientId}`);
+		const res = await axios.delete(`/respstock/${clientId}`);
 		dispatch({
-			type: DELETE_USER_SUCCESS,
+			type: DELETE_RESP_STOCK_SUCCESS,
 			payload: clientId,
 		})
 		toast.success('Utilisateur supprimé avec succés');
 	} catch (error) {
 		dispatch({
-			type: DELETE_USER_FAILED,
+			type: DELETE_RESP_STOCK_FAILED,
 			payload: error,
 		});
 		toast.error('Une erreur a été survenue');
@@ -295,15 +303,15 @@ export const deleteRespStock = (clientId) => async (dispatch) => {
 
 export const deleteRespVente = (clientId) => async (dispatch) => {
 	try {
-		const res = await axios.delete(`/clients/${clientId}`);
+		const res = await axios.delete(`/respvente/${clientId}`);
 		dispatch({
-			type: DELETE_USER_SUCCESS,
+			type: DELETE_RESP_VENTE_SUCCESS,
 			payload: clientId,
 		})
 		toast.success('Utilisateur supprimé avec succés');
 	} catch (error) {
 		dispatch({
-			type: DELETE_USER_FAILED,
+			type: DELETE_RESP_VENTE_FAILED,
 			payload: error,
 		});
 		toast.error('Une erreur a été survenue');
